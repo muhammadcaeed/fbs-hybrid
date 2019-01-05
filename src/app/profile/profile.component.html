@@ -1,0 +1,96 @@
+<ion-content>
+    <app-header></app-header>
+    <section>
+      <div class="second-page-container">
+        <div class="block">
+          <div class="container">
+            <div class="header-for-light">
+              <h1 class="wow fadeInRight animated" data-wow-duration="1s">{{isVisitor ? user['profile']['name'] : 'My' }} <span>Profile</span></h1>
+            </div>
+            <h3 class="message" *ngIf="message">{{message}}</h3>
+            <div class="col-lg-8 col-md-7">
+              <div class="card">
+                <div class="text-center">
+                    <div class="author">
+                      <!-- <img class="avatar border-white" [src]="user['profile']['image_path']" alt="..."/> -->
+                    </div>
+                </div>
+                <hr>
+                <div class="content">
+                  <form [formGroup]="form">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control border-input" formControlName="email" placeholder="Email">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Role</label>
+                            <input type="text" class="form-control border-input" placeholder="Role" formControlName="role">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Username</label>
+                          <input type="text" class="form-control border-input" formControlName="username">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Full Name</label>
+                          <input type="text" class="form-control border-input" formControlName="name">
+                          <div *ngIf="name.touched && name.invalid">
+                            <div *ngIf="name.errors?.required">Name is required</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+    
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Address</label>
+                          <input type="text" class="form-control border-input" formControlName="address">
+                          <div *ngIf="address.touched && address.invalid">
+                            <div *ngIf="address.errors?.required">Address is required</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+    
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Mobile Number</label>
+                          <input type="text" class="form-control border-input" placeholder="Mobile Number" formControlName="mobile_number">
+                          <div *ngIf="mobile_number.touched && mobile_number.invalid">
+                            <div *ngIf="mobile_number.errors?.required">Mobile number is required</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="!isVisitor">
+                        <div class="col-md-6">
+                            <button 
+                            (click)="updateProfile()" 
+                            [disabled]="form.invalid || !form.dirty"
+                            style="background:red!important"
+                            class="btn-default-1">Update Profile</button>
+                        </div>
+                      </div>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <app-footer></app-footer>
+</ion-content>

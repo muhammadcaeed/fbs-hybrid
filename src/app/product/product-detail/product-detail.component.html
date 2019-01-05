@@ -1,0 +1,74 @@
+<ion-content>
+	<app-header></app-header>
+	<section>
+		<div class="second-page-container">
+			<div class="container set-height">
+				<h3 *ngIf="message" class="message"> {{ message }} </h3>
+				<div class="row" *ngIf="!message">
+
+					<div class="col-md-9">
+						<br><br>
+						<div class="header-for-light">
+							<h1 class="wow fadeInRight animated" data-wow-duration="1s    ">{{ article?.name }}</h1>
+
+						</div>
+
+						<div class="block-product-detail">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+									<div class="product-image">
+										<img id="product-zoom" [src]="article?.image_path" data-zoom-image="article?.image_path" alt="">
+									</div>
+
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+									<div class="product-detail-section">
+										<h3>{{article?.name}}</h3>
+
+										<div class="product-information">
+											<div class="clearfix">
+												<label class="pull-left">Category:</label> <a>{{article?.category}}</a><br>
+											</div>
+											<div class="clearfix">
+												<label class="pull-left">Quality:</label> {{article?.condition}}
+											</div>
+											<div class="clearfix">
+												<label class="pull-left">Seller Name:</label> {{ article?.seller }}
+												<span *ngIf="article?.buyer_id" (click)="visitProfile()" class="shopping-cart-buttons" style="cursor: pointer">
+													<a class="shoping" style="width: 80px; height: 30px;">
+														Profile
+													</a>
+												</span>
+											</div>
+											<div class="clearfix">
+												<label class="pull-left">Description:</label>
+												<p class="description">{{article?.description}}</p>
+											</div>
+											<div class="clearfix">
+												<label class="pull-left">Price:</label>
+												<p class="product-price">
+													€ {{article?.price}}</p>
+											</div>
+											<div class="shopping-cart-buttons" *ngIf="article?.buyer_id">
+
+												<a *ngIf="!existInWishlist" (click)="addToWishlist()" class="shoping" style="cursor:pointer;width:190px"><i
+													 class="fa fa-shopping-cart"></i>
+													Add to Wish List
+												</a>
+												<a *ngIf="existInWishlist" (click)="addToWishlist()" class="shoping" style="width:300px">
+													Product Added in Wish List
+												</a>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<app-footer></app-footer>
+</ion-content>
