@@ -1,103 +1,100 @@
 <ion-content>
-    <app-header></app-header>
-    <section>
-      <div class="second-page-container">
-        <div class="block">
-          <div class="container">
-            <h3 class="message" *ngIf="message">{{message}}</h3>
-            <div class="header-for-light">
-              <h1 class="wow fadeInRight animated" data-wow-duration="1s">My <span>Wishlist</span></h1>
-            </div>
-            <h3 *ngIf="articles && articles['length'] < 1">No Products in Wishlist</h3>
-            <div class="row" *ngIf="articles && articles['length']">
-              <div class="col-md-12">
-                <table class="cart-table table wow fadeInLeft" data-wow-duration="1s">
-                  <thead>
-                    <tr>
-                      <th class="card_product_image">Image</th>
-                      <th class="card_product_name">Product Name</th>
-                      <th class="card_product_model">Note</th>
-                      <th class="card_product_quantity">Condition</th>
-                      <th class="card_product_price">Price</th>
-                      <th class="card_product_remove">Remove</th>
-                      <!-- <th class="card_product_total">Add to Cart</th> -->
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let article of articles">
-                      <td class="card_product_image" data-th="Image"><a><img title="Product Name" alt="Product Name" [src]="article.product_details.image_path"></a></td>
-                      <td class="card_product_name" data-th="Product Name"><a>{{article.product_details.name}}</a><br>
-                      </td>
-                      <td class="card_product_model" data-th="Model">
-                        <p>{{article.product_details.description}}</p>
-                      </td>
-                      <td class="card_product_quantity" data-th="Quantity">
-                        {{article.product_details.condition}}
-                      </td>
-                      <td class="card_product_price" data-th="Unit Price">{{article.product_details.price}}</td>
-                      <!-- <td class="card_product_total" data-th="Add to Cart"><input type="submit" value="Add to Cart" class="btn-default-1"></td> -->
-    
-                      <td class="card_product_remove" data-th="Remove"><a style="cursor: pointer" (click)="removeProduct(article)">Remove</a></td>
-                    </tr>
-    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" *ngIf="articles && articles['length']">
-              <div class="row">
-                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <div class="block-form block-order-total box-border wow fadeInRight" data-wow-duration="1s">
-                    <h3><i class="fa fa-dollar"></i> Total</h3>
-                    <hr>
-                    <ul class="list-unstyled">
-                      <li>Sub Total: <strong>€ {{ total }}</strong></li>
-                      <!-- <li>Promotion Discound: <strong>€ 5.00</strong></li> -->
-                      <!-- <li>VAT: <strong>€ 10.00</strong></li> -->
-                      <li>
-                        <hr>
-                      </li>
-                      <li><b>Total:</b> <strong>€ {{ total }}</strong></li>
-                    </ul>
-                    <button style="cursor: pointer" [disabled]="articles && articles['length'] == 0" (click)="checkout()"
-                      class="btn-default-1">Checkout</button>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-          <br><br><br><br><br><br>
-          <div class="container">
-            <div class="header-for-light">
-              <h1 class="wow fadeInRight animated" data-wow-duration="1s">My <span>Orders</span></h1>
-            </div>
-            <h3 *ngIf="orders && orders['length'] < 1">No Orders</h3>
-            <div class="row">
-              <div *ngFor="let order of orders; let i = index" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                <div class="row">
-                  <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="block-form block-order-total box-border wow fadeInRight" data-wow-duration="1s">
-                      <h3><i class="fa fa-dollar"></i> Order {{i+1}}</h3>
-                      <hr>
-                      <ul class="list-unstyled">
-                        <li *ngFor="let product of order.products">{{product.name }}<strong>€ {{ product.price }}</strong></li>
-                        <!-- <li>Promotion Discound: <strong>€ 5.00</strong></li> -->
-                        <!-- <li>VAT: <strong>€ 10.00</strong></li> -->
-                        <li>
-                          <hr>
-                        </li>
-                        <li><b>Total:</b> <strong>€ {{ order.total }}</strong></li>
-                      </ul>
-                    </div>
-                  </article>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <app-header></app-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="header-for-light">
+        <h1 class="wow fadeInRight animated" data-wow-duration="1s">My <span>Wishlist</span></h1>
       </div>
-    </section>
-    
-    
-    <app-footer [ngClass]="{'fixed': articles?.length || orders?.length ? false : true }"></app-footer>
+    </ion-title>
+    <ion-title *ngIf="articles && articles['length'] < 1">
+        <h3>No Products in Wishlist</h3>
+      </ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="message">
+    <ion-title class="message"><h3>{{message}}</h3></ion-title>
+  </ion-toolbar>
+
+  <div *ngIf="articles && articles['length']">
+    <ion-card *ngFor="let article of articles">
+      <ion-card-header>
+        <ion-card-title>{{article.product_details.name}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-img [src]="article.product_details.image_path"></ion-img>
+        <ion-item>
+          <ion-label>
+            <ion-col><b>Product Name</b></ion-col>
+            <ion-col>{{article.product_details.name}}</ion-col>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-col><b>Note</b></ion-col>
+            <ion-col>{{article.product_details.description}}</ion-col>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-col><b>Condition</b></ion-col>
+            <ion-col>{{article.product_details.condition}}</ion-col>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-col><b>Price</b></ion-col>
+            <ion-col>€ {{article.product_details.price}}</ion-col>
+          </ion-label>
+        </ion-item>
+        <ion-button expand="block" color="danger" style="cursor: pointer" (click)="removeProduct(article)">Remove
+          from
+          wishlist</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-card *ngIf="articles && articles['length']">
+    <ion-card-header>
+      <ion-card-title>Total</ion-card-title>
+      <ion-card-subtitle>Sub Total: € {{ total }}</ion-card-subtitle>
+      <ion-card-subtitle>Total: € {{ total }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-button expand="block" color="danger" style="cursor: pointer" [disabled]="articles && articles['length'] == 0"
+        (click)="checkout()">
+        Checkout
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <br><br>
+  <ion-toolbar>
+    <ion-title>
+      <div class="header-for-light">
+        <h1 class="wow fadeInRight animated" data-wow-duration="1s">My <span>Orders</span></h1>
+      </div>
+    </ion-title>
+    <ion-title *ngIf="orders && orders['length'] < 1">
+      <h3>No Orders</h3>
+    </ion-title>
+  </ion-toolbar>
+
+  <ion-card *ngFor="let order of orders; let i = index">
+    <ion-card-header>
+      <ion-card-title>Order {{i+1}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-item *ngFor="let product of order.products">
+      <ion-label>{{product.name }}</ion-label>
+      <ion-label>€ {{product.price }}</ion-label>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-card-subtitle>Total: € {{ order.total }}</ion-card-subtitle>
+    </ion-card-content>
+  </ion-card>
+
+  <app-footer [ngClass]="{'fixed': articles?.length || orders?.length ? false : true }"></app-footer>
 </ion-content>

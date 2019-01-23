@@ -36,4 +36,14 @@ export class HomeComponent implements OnInit {
   productDetails(id) {
     this.router.navigate(['product-detail', {id: id}]);
   }
+
+  allProducts() {
+    const url = this.router.url;
+    if (url.search('product-listing') === -1) {
+      this.router.navigate(['product-listing']);
+    }
+    else {
+      this.router.navigate(['refresh', {route: 'product-listing'}]);
+    }
+  }
 }

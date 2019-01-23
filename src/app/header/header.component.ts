@@ -9,7 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   user;
+  keyword;
   searchKeyword: any;
+
   constructor(
     private signingService: SigningService,
     private router: Router,
@@ -17,6 +19,7 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.keyword = this.route.snapshot.params.name;
     const url = this.router.url;
     if (localStorage.getItem('user')) {
       this.user = JSON.parse(localStorage.getItem('user'));

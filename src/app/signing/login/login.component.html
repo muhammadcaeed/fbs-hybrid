@@ -1,56 +1,57 @@
 <ion-content>
-		<app-header></app-header>
-		<section>
-			<div class="second-page-container">
-				<div class="block">
-					<div class="container">
-						<div class="header-for-light">
-							<h1 class="wow fadeInRight animated" data-wow-duration="1s">Login in your <span>Account</span></h1>
-						</div>
-						<h3 class="message" *ngIf="message">{{message}}</h3>
-						<div class="row">
-							<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="block-form box-border wow fadeInLeft animated" data-wow-duration="1s">
-									<h3><i class="fa fa-unlock"></i>Login</h3>
-									<p>Please login using your existing account</p>
-									<form [formGroup]="form">
-										<div class="row">
-											<div class="col-md-6">
-												<input type="text" class="form-control" id="username" formControlName="username" placeholder="username">
-												<div *ngIf="username.touched && username.invalid">
-													<div *ngIf="username.errors?.required">Username is required</div>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<input type="password" class="form-control" id="password" formControlName="password" placeholder="password">
-												<div *ngIf="password.touched && password.invalid">
-													<div *ngIf="password.errors?.required">Password is required</div>
-												</div>
-											</div>
-											<div class="col-md-12">
-												<hr>
-												<button type="submit" [disabled]="form.invalid" (click)="login()" class="btn-default-1">Login</button>
-												<button type="button" [routerLink]="['/forgot-password']" class="btn-default-1">Reset Password</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							</article>
-							<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="block-form box-border wow fadeInRight animated" data-wow-duration="1s">
-									<h3><i class="fa fa-pencil"></i>Create new account</h3>
-									<p>Registration allows you to avoid filling in billing and shipping forms every time you
-										checkout on this website.</p>
-									<hr>
-									<a [routerLink]="['/register']" class="btn-default-1">Register</a>
-								</div>
-		
-							</article>
-						</div>
-					</div>
-				</div>
+	<app-header></app-header>
+	<ion-toolbar>
+		<ion-title>
+			<div class="header-for-light">
+				<h1 class="wow fadeInRight animated" data-wow-duration="1s">Login in your <span>Account</span></h1>
 			</div>
-		</section>
-		
-		<app-footer></app-footer>
+		</ion-title>
+	</ion-toolbar>
+	<ion-toolbar *ngIf="message">
+		<ion-title class="message">
+			<h3>{{message}}</h3>
+		</ion-title>
+	</ion-toolbar>
+	<ion-card>
+		<ion-card-header>
+			<ion-card-title>Login</ion-card-title>
+			<ion-card-subtitle>Please login using your existing account</ion-card-subtitle>
+		</ion-card-header>
+		<ion-card-content>
+			<form [formGroup]="form">
+				<ion-item>
+					<ion-label position="floating">Username</ion-label>
+					<ion-input formControlName="username"></ion-input>
+					<div *ngIf="username.touched && username.invalid">
+						<div *ngIf="username.errors?.required">Username is required</div>
+					</div>
+				</ion-item>
+				<ion-item>
+					<ion-label position="floating">Password</ion-label>
+					<ion-input formControlName="password"></ion-input>
+					<div *ngIf="password.touched && password.invalid">
+						<div *ngIf="password.errors?.required">Password is required</div>
+					</div>
+				</ion-item>
+				<ion-button color="danger" type="submit" [disabled]="form.invalid" (click)="login()">Login</ion-button>
+				<ion-button color="danger" [routerLink]="['/forgot-password']">Reset Password</ion-button>
+			</form>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card>
+		<ion-card-header>
+			<ion-card-title>Create new account</ion-card-title>
+		</ion-card-header>
+
+		<ion-card-content>
+			<ion-item>
+				Registration allows you to avoid filling in billing and shipping forms every time you
+				checkout on this website.
+			</ion-item>
+			<ion-button expand="block" color="danger" [routerLink]="['/register']">Register</ion-button>
+		</ion-card-content>
+	</ion-card>
+
+	<app-footer></app-footer>
 </ion-content>

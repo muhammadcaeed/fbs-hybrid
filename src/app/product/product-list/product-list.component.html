@@ -1,73 +1,55 @@
-<ion-content>
-		<app-header></app-header>
-		<section>
-			<div class="second-page-container">
-				<div class="container">
-					<div class="row">
-		
-						<div class="col-md-9">
-		
+<app-header></app-header>
+<ion-content>	
+
 							<div class="header-for-light">
-								<h1 class="wow fadeInRight animated" data-wow-duration="1s">Products</h1>
+								<h3 class="wow fadeInRight animated" data-wow-duration="1s">All Products</h3>
 		
 							</div>
-							<div class="block-products-modes color-scheme-2">
-								<div class="row">
-									<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-										<form>
-											<input type="text" [(ngModel)]="keyword" (keyup.enter)="list()" name="keyword" placeholder="Search ..." class="form-control">
-										</form>
+							
+							<ion-searchbar
+  								[(ngModel)]="keyword"
+  								[showCancelButton]="shouldShowCancel"
+								  
+								  (keyup.enter)="list()"
+ 								(ionCancel)="onCancel($event)">
+							</ion-searchbar>
+
+							<ion-button  (click)="presentActionSheet()" >         
+							 	Sort <ion-icon name="funnel" ></ion-icon>
+							</ion-button>
+
+							
+							<h3 *ngIf="!articles?.length" class="message">No products found</h3>
+							<div class="cards-bg social-cards">
+
+									
+										<h3 *ngIf="!articles.length">No products</h3>
+										<ion-card *ngFor="let article of articles" class="col-md-3 text-center" (click)="productDetails(article._id)">
+												
+												<ion-item >
+												  <h4>{{ article.name}}</h4>
+												</ion-item>
+											  
+												<img [src]="article.image_path" class="img-responsive" alt="">
+											  
+												<ion-card-content>
+												  <p>{{ article.description }}</p>
+												</ion-card-content>
+											  
+												<ion-row>
+												  <ion-col>	
+													  <div>Price: $ {{ article.price }}</div>			
+												  </ion-col>
+												  <ion-col>	
+														<div>Category: {{ article?.category }}</div>			
+													</ion-col>
+												
+												 
+												</ion-row>
+											  
+												</ion-card>
+											
 									</div>
-									<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-										<div class="row">
-											<div class="col-md-3">
-												<label class="pull-right">Sort by</label>
-											</div>
-											<div class="col-md-9">
-												<select name="sort-type" [(ngModel)]="filter" (change)="list()" class="form-control">
-													<option value="recent">Most recent</option>
-													<option value="price_lowest" selected="selected">Price: Lowest first</option>
-													<option value="price_highest">Price: Highest first</option>
-													<option value="name_asc">Product Name: A to Z</option>
-													<option value="name_desc">Product Name: Z to A</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<h1 *ngIf="!articles?.length" class="message">No products found</h1>
-							<article *ngFor="let article of articles" class="product list">
-								<div class="row" (click)="productDetails(article._id)">
-									<div class="col-xs-12 col-sm-4 col-md-4 text-center" style="cursor:pointer!important">
-										<figure class="figure-hover-overlay text-center">
-											<a (click)="productDetails(article._id)" class="figure-href"></a>
-											<div class="product-new">{{article.type}}</div>
-											<div class="product-sale" *ngIf="article.discount">{{article.discount}} <br> off</div>
-											<img [src]="article.image_path" class="img-overlay img-responsive" alt="">
-											<img [src]="article.image_path" class="img-responsive" alt="">
-										</figure>
-									</div>
-		
-									<div class="col-xs-12 col-sm-8 col-md-8" style="cursor:pointer!important">
-										<div class="product-caption">
-											<div class="block-name">
-												<a (click)="productDetails(article._id)" class="product-name">{{article.name}}</a>
-												<p class="product-price"><span>{{article.price.original}}</span> {{article.price.discounted}}</p>
-											</div>
-											<p class="description">{{article.description}}</p>
-											<p class="price">{{article.price}} €</p>
-										</div>
-									</div>
-								</div>
-							</article>
-		
-						</div>
-		
-					</div>
-				</div>
-			</div>
-		
-		</section>
-		<app-footer [ngClass]="{'fixed': articles?.length >= 2 ? false : true }"></app-footer>
+
 </ion-content>
+<app-footer [ngClass]="{'fixed': articles?.length >= 2 ? false : true }"></app-footer>

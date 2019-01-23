@@ -1,3 +1,20 @@
 ion-content .scroll-content {
   overflow : auto !important;
 }
+.social-cards ion-col {
+  padding: 0;
+}
+
+h3{
+  text-align: center;
+  font-weight: bold;
+}
+
+ion-button{
+  width:100%; 
+
+}
+
+ion-item h4{
+  font-weight: bold;
+}

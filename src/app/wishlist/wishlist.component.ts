@@ -58,7 +58,7 @@ export class WishlistComponent implements OnInit {
         console.log(this.orders);
         this.articles.forEach(article => {
           this.total += article.product_details.price;
-          article.product_details.image_path = environment.apiUrl + '/' + article.product_details.image_path;
+          // article.product_details.image_path = environment.apiUrl + '/' + article.product_details.image_path;
         });
 
       },
