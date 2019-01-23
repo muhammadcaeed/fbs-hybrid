@@ -10,7 +10,6 @@ import { environment } from '../../environments/environment';
 export class OrdersHistoryComponent implements OnInit {
   articles = [];
   user;
-  message;
   total = 0;
   approved = 0;
   sold = 0;
@@ -35,14 +34,14 @@ export class OrdersHistoryComponent implements OnInit {
           article.approved ? this.approved ++ : null;
           article.sold ? this.sold ++ : null;
           article.sold ? this.total += article.price : null; 
-          article.image_path = environment.apiUrl + '/' + article.image_path;
+          // article.image_path = environment.apiUrl + '/' + article.image_path;
         });
       }
       else {
-        this.message = 'No sales yet';
+        this.signingService.presentToast('No sales yet');
       }
       if (result['body'] && !result['body']['status']) {
-        this.message = result['body']['message'];
+        this.signingService.presentToast(result['body']['message']);
       }
     }, err => console.log(err));
   }

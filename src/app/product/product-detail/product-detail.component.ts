@@ -15,7 +15,6 @@ export class ProductDetailComponent implements OnInit {
   productId;
   article;
   params;
-  message;
   existInWishlist = false;
   constructor(
     private title: Title,
@@ -45,10 +44,11 @@ export class ProductDetailComponent implements OnInit {
             }
           }
           else {
-            this.message = 'Product not found';
+            this.signingService.presentToast('Product not found');
           }
         },
-        err => this.message = err['error']['message']);
+        err => this.signingService.presentToast(err['error']['message'])
+        );
   }
   addToWishlist() {
     if (this.existInWishlist) {

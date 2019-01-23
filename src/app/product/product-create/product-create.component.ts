@@ -16,7 +16,6 @@ export class ProductCreateComponent implements OnInit {
   form;
   categories;
   count = 0;
-  message;
   uploader: FileUploader;
   product_id;
   constructor(
@@ -74,14 +73,14 @@ export class ProductCreateComponent implements OnInit {
     if (result['status']) {
       this.form.reset();
       this.uploader.clearQueue();
-      this.message = result['message'];
+      this.signingService.presentToast(result['message']);
     }
 }
 
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
     const error = JSON.parse(response);
     console.log('error =>', error);
-    this.message = error.err.message;
+    this.signingService.presentToast(error.err.message);
     this.uploader.clearQueue();
   }
 }

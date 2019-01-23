@@ -15,13 +15,6 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h3 *ngIf="message"> {{ message }} </h3>
-    </div>
-  </div>
-
-
   <ion-card *ngFor="let record of activeLayer; let x = index">
     <ion-card-header>
       <ion-card-title>{{ isUserActive ? record.username : record.name }}</ion-card-title>

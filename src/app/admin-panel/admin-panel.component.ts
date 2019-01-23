@@ -15,7 +15,6 @@ export class AdminPanelComponent implements OnInit {
   users;
   activeLayer;
   isUserActive;
-  message;
   constructor(
     private title: Title,
     private signingService: SigningService,
@@ -27,13 +26,21 @@ export class AdminPanelComponent implements OnInit {
     this.loadProducts();
     this.loadUsers();
   }
+
+
+
   action(record) {
     console.log(record);
     this.signingService.changeProductStatus(record)
       .subscribe(
         result => {
           console.log(result);
-          this.loadProducts();
+          if (result['status']) {
+            this.signingService.presentToast(result['message']);
+            this.isUserActive
+              ? this.loadUsers()
+              : this.loadProducts();
+          }
         },
         err => console.log(err),
       );
@@ -45,13 +52,10 @@ export class AdminPanelComponent implements OnInit {
         result => {
           console.log(result);
           if (result['status']) {
-            this.message = result['message'];
+            this.signingService.presentToast(result['message']);
             this.isUserActive
               ? this.loadUsers()
               : this.loadProducts();
-            setTimeout(() => {
-              this.message = null;
-            }, 3000);
           }
         },
         err => console.log(err),

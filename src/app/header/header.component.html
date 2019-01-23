@@ -15,6 +15,13 @@
 			</ion-button>
 		</ion-buttons>
 
+		<ion-buttons *ngIf="user && user.role != 'buyer'">
+				<ion-button [routerLink]="['/sales']">
+					<ion-icon name="paper"></ion-icon>
+				</ion-button>
+			</ion-buttons>
+	
+
 		<ion-buttons slot="end" *ngIf="user && user?.role !== 'seller'">
 			<ion-button [routerLink]="['/wishlist']">
 				<ion-icon name="cart"></ion-icon>

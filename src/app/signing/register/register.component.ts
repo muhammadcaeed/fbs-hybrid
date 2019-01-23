@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SigningService } from '../../services/signing.service';
@@ -8,9 +8,8 @@ import { SigningService } from '../../services/signing.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   form;
-  message;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -43,15 +42,12 @@ export class RegisterComponent implements OnInit {
           if (result['status']) {
             this.form.reset();
           }
-          this.message = result['message'];
+          this.signingService.presentToast(result['message']);
         },
         err => {
-          this.message = err['error']['message'];
+          this.signingService.presentToast(err['error']['message']);
         }
       );
-  }
-
-  ngOnInit() {
   }
 
 }

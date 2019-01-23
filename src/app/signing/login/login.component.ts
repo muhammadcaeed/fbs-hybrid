@@ -34,18 +34,17 @@ export class LoginComponent implements OnInit {
         result => {
           console.log(result);
           this.form.reset();
-          this.message = result['message'];
+          this.signingService.presentToast(result['message']);
           if (result['status']) {
             localStorage.setItem('user', JSON.stringify(result['user']));
             setTimeout(() => {
-              this.message = null;
               // this.router.navigate(['']);
               window.location.href = '/';
             }, 2000);
           }
         },
         err => {
-          this.message = err.error.message;
+          this.signingService.presentToast(err.error.message);
         }
       );
   }

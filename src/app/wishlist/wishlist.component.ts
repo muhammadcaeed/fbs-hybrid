@@ -13,7 +13,6 @@ export class WishlistComponent implements OnInit {
   orders;
   total = 0;
   user;
-  message;
   constructor(
     private signingService: SigningService
   ) { }
@@ -40,11 +39,8 @@ export class WishlistComponent implements OnInit {
     this.signingService.checkout(order)
       .subscribe(result => {
         console.log(result);
-          this.message = result['message'];
+        this.signingService.presentToast(result['message']);
           this.list();
-          setTimeout(() =>  {
-            this.message = null;
-          }, 3000);
       }, 
       err => console.log(err));
   }

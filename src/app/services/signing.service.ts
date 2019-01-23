@@ -1,13 +1,26 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SigningService {
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    public toastController: ToastController
+    ) {}
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
+  }
+  
   searchProducts(params) {
     const url = environment.apiUrl + '/api/products';
     if (!params.name) {

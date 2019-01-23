@@ -32,10 +32,10 @@ export class ForgotPasswordComponent implements OnInit {
     .subscribe(
       result => {
         this.form.reset();
-        this.message = result['message'];
+        this.signingService.presentToast(result['message']);
       },
       err => {
-        this.message = err.error.message;
+        this.signingService.presentToast(err.error.message);
       }
     );
   }
