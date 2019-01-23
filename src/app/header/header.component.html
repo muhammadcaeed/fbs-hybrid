@@ -15,11 +15,18 @@
 			</ion-button>
 		</ion-buttons>
 
-		<ion-buttons slot="end">
+		<ion-buttons slot="end" *ngIf="user && user?.role !== 'seller'">
 			<ion-button [routerLink]="['/wishlist']">
 				<ion-icon name="cart"></ion-icon>
 			</ion-button>
 		</ion-buttons>
+
+		<ion-buttons slot="end" *ngIf="user && user.role == 'admin'">
+			<ion-button [routerLink]="['/admin-panel']">
+				<ion-icon name="cog"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+		
 
 		<ion-buttons *ngIf="!user" slot="end">
 			<ion-button [routerLink]="['/login']">

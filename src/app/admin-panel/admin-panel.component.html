@@ -1,113 +1,85 @@
-<meta charset="utf-8" />
-<link rel="icon" type="image/png" href="../../assets/img/favicon.ico">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-<meta name="viewport" content="width=device-width" />
-
-<!-- <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" /> -->
-<link href="../../assets/css/animate.min.css" rel="stylesheet" />
-<link href="../../assets/css/light-bootstrap-dashboard.css" rel="stylesheet" />
-<link href="../../assets/css/demo.css" rel="stylesheet" />
-<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-<link href="../../assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-
 <ion-content>
-  
-<div class="wrapper">
-    <div class="sidebar" data-color="gray" data-image="../../assets/img/sidebar-3.jpg">
-    <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="active" style="cursor: pointer">
-            <a (click)="activeLayer = users; isUserActive = true">
-              <i class="pe-7s-note2"></i>
-              <p>Users </p>
-            </a>
-          </li>
-          <li class="active" style="cursor: pointer">
-            <a (click)="activeLayer = products; isUserActive = false">
-              <i class="pe-7s-note2"></i>
-              <p>Products </p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  
-    <div class="main-panel">
-      <nav class="navbar navbar-default navbar-fixed">
-        <div class="container-fluid">
-  
-          <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-left">
-              <li><h1>ADMIN PANEL</h1></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li>
-                <a [routerLink]="['/']">
-                  Close
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-12">
-                <h3 *ngIf="message"> {{ message }} </h3>
-              </div>
-            </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="header">
-                  <h4 class="title">{{ isUserActive ? 'Users' : 'Products' }} List</h4>
-                </div>
-                <div class="content table-responsive table-full-width">
-                  <table class="table table-hover table-striped">
-                    <thead>
-                      <th>ID</th>
-                      <th *ngIf="!isUserActive">Name</th>
-                      <th>{{ isUserActive ? 'Role' : 'Category' }}</th>
-                      <th>{{ isUserActive ? 'Email' : 'Condition' }}</th>
-                      <th>{{ isUserActive ? 'Username' : 'Price' }}</th>
-                      <th *ngIf="!isUserActive">{{ isUserActive ? 'Password' : 'Status' }}</th>
-                      <th>Action</th>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let record of activeLayer; let x = index">
-                        <td>{{x + 1}}</td>
-                        <td *ngIf="!isUserActive">{{ record.name }}</td>
-                        <td>{{ isUserActive ? record.role : record.category_id}}</td>
-                        <td>{{ isUserActive ? record.email : record.condition}}</td>
-                        <td>{{ isUserActive ? record.username : record.price}}</td>
-                        <td *ngIf="!isUserActive">{{ record.approved ? 'Approved' : 'Unapproved' }}</td>
-                        <td>
-                          <a *ngIf="!isUserActive" style="cursor: pointer" (click)="action(record)">{{ record && record?.approved ? 'Unapprove' : 'Approved' }}</a>
-                          &nbsp;&nbsp;
-                          <a style="cursor: pointer" (click)="delete(record._id)">Delete</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <footer class="footer">
-        <div class="container-fluid">
-  
-          <p class="copyright pull-right">
-            <a href="">Copyright В© 2018</a> Hochshule Fulda,lepziger strasse | All rights reserved.<br>Designed by <a
-              href="" target="_blank">FD#3 Team GDSD Group</a>
-          </p>
-        </div>
-      </footer>
+  <ion-header>
+    <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+        <ion-button [routerLink]="['']">
+          <ion-icon name="home"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>
+        Admin Panel
+        <span>
+          <h5 style="color:white"><b>{{ isUserActive ? 'Users' : 'Products' }} List</b></h5>
+        </span>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3 *ngIf="message"> {{ message }} </h3>
     </div>
   </div>
+
+
+  <ion-card *ngFor="let record of activeLayer; let x = index">
+    <ion-card-header>
+      <ion-card-title>{{ isUserActive ? record.username : record.name }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-item>
+      <ion-label>
+        <ion-col><b>ID</b></ion-col>
+        <ion-col>{{x + 1}}</ion-col>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="isUserActive">
+      <ion-label>
+        <ion-col>Role</ion-col>
+        <ion-col>{{ record.role }}</ion-col>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-col>{{ isUserActive ? 'Email' : 'Condition' }}</ion-col>
+        <ion-col>{{ isUserActive ? record.email : record.condition}}</ion-col>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="!isUserActive">
+      <ion-label>
+        <ion-col>Price</ion-col>
+        <ion-col>{{record.price}}</ion-col>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="!isUserActive">
+      <ion-label>
+        <ion-col>{{ isUserActive ? 'Password' : 'Status' }}</ion-col>
+        <ion-col>{{ record.approved ? 'Approved' : 'Unapproved' }}</ion-col>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-col>Action</ion-col>
+        <ion-col>
+          <a *ngIf="!isUserActive" style="cursor: pointer" (click)="action(record)">{{ record &&
+            record?.approved ? 'Unapprove' : 'Approve' }}</a>
+          &nbsp;&nbsp;
+          <a style="cursor: pointer" (click)="delete(record._id)">Delete</a></ion-col>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
 </ion-content>
+
+
+<ion-tab-bar slot="bottom">
+  <ion-tab-button tab="products" (click)="activeLayer = products; isUserActive = false">
+    <ion-label>Products</ion-label>
+    <ion-icon name="filing"></ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button tab="users" (click)="activeLayer = users; isUserActive = true">
+    <ion-label>Users</ion-label>
+    <ion-icon name="people"></ion-icon>
+  </ion-tab-button>
+</ion-tab-bar>
