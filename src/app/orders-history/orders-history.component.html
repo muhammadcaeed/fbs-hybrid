@@ -47,7 +47,7 @@
             <span *ngIf="article.deleted">Removed</span>
             <span *ngIf="article.sold">Already sold</span>
             <span *ngIf="!article.deleted && !article.sold">
-              <ion-button style="cursor: pointer" color="danger" (click)="removeProduct(article._id)">
+              <ion-button style="cursor: pointer" color="secondary" (click)="removeProduct(article._id)">
                 Remove
               </ion-button>
             </span>

@@ -35,7 +35,7 @@
           <ion-label>Price</ion-label>
           <ion-label>€ {{article.product_details.price}}</ion-label>
         </ion-item>
-        <ion-button expand="block" color="danger" style="cursor: pointer" (click)="removeProduct(article)">Remove
+        <ion-button expand="block" color="secondary" style="cursor: pointer" (click)="removeProduct(article)">Remove
           from
           wishlist</ion-button>
       </ion-card-content>
@@ -50,7 +50,7 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-button expand="block" color="danger" style="cursor: pointer" [disabled]="articles && articles['length'] == 0"
+      <ion-button expand="block" color="secondary" style="cursor: pointer" [disabled]="articles && articles['length'] == 0"
         (click)="checkout()">
         Checkout
       </ion-button>

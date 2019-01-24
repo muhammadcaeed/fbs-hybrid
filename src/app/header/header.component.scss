@@ -7,3 +7,12 @@ ion-title {
     height: 100%;
     text-align: center;
   }
+
+  :root {
+    --ion-color-secondary: #80E9F9;
+    --ion-color-secondary-rgb: 0,102,0;
+    --ion-color-secondary-contrast: #ffffff;
+    --ion-color-secondary-contrast-rgb: 255,255,255;
+    --ion-color-secondary-shade: #80E9F9;
+    --ion-color-secondary-tint: #80E9F9;
+  }

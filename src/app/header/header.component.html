@@ -1,41 +1,41 @@
 <ion-header>
-	<ion-toolbar color="danger">
+	<ion-toolbar color="secondary">
+		<ion-item color="secondary">
+
 		<ion-buttons slot="start">
 			<ion-button [routerLink]="['']">
 				<ion-icon name="home"></ion-icon>
 			</ion-button>
 		</ion-buttons>
-		<ion-searchbar name="searchKeyword" [(ngModel)]="searchKeyword" [showCancelButton]="shouldShowCancel" (keyup.enter)="searchProducts()"
-		 (ionCancel)="onCancel($event)">
-		</ion-searchbar>
+	
 
-		<ion-buttons *ngIf="user && user.role != 'buyer'" slot="end">
+		<ion-buttons *ngIf="user && user.role != 'buyer'" >
 			<ion-button [routerLink]="['/product-create']">
 				<ion-icon name="add-circle"></ion-icon>
 			</ion-button>
 		</ion-buttons>
 
-		<ion-buttons *ngIf="user && user.role != 'buyer'">
+		<ion-buttons *ngIf="user && user.role != 'buyer'"  >
 				<ion-button [routerLink]="['/sales']">
 					<ion-icon name="paper"></ion-icon>
 				</ion-button>
 			</ion-buttons>
 	
 
-		<ion-buttons slot="end" *ngIf="user && user?.role !== 'seller'">
+		<ion-buttons slot="end" *ngIf="user" >
 			<ion-button [routerLink]="['/wishlist']">
 				<ion-icon name="cart"></ion-icon>
 			</ion-button>
 		</ion-buttons>
 
-		<ion-buttons slot="end" *ngIf="user && user.role == 'admin'">
+		<ion-buttons slot="end" *ngIf="user && user.role == 'admin'" >
 			<ion-button [routerLink]="['/admin-panel']">
 				<ion-icon name="cog"></ion-icon>
 			</ion-button>
 		</ion-buttons>
 		
 
-		<ion-buttons *ngIf="!user" slot="end">
+		<ion-buttons *ngIf="!user"  slot="end">
 			<ion-button [routerLink]="['/login']">
 				<ion-icon name="log-in"></ion-icon>
 			</ion-button>
@@ -46,6 +46,11 @@
 				<ion-icon name="log-out"></ion-icon>
 			</ion-button>
 		</ion-buttons>
-
+	</ion-item>
+	<ion-item color="secondary">
+		<ion-searchbar name="searchKeyword" [(ngModel)]="searchKeyword" [showCancelButton]="shouldShowCancel" (keyup.enter)="searchProducts()"
+		(ionCancel)="onCancel($event)">
+	   </ion-searchbar>
+	</ion-item>
 	</ion-toolbar>
 </ion-header>
