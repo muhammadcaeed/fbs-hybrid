@@ -1,55 +1,49 @@
 <app-header></app-header>
-<ion-content>	
+<ion-content>
 
-							<div class="header-for-light">
-								<h3 class="wow fadeInRight animated" data-wow-duration="1s">All Products</h3>
-		
-							</div>
-							
-							<ion-searchbar
-  								[(ngModel)]="keyword"
-  								[showCancelButton]="shouldShowCancel"
-								  
-								  (keyup.enter)="list()"
- 								(ionCancel)="onCancel($event)">
-							</ion-searchbar>
+	<div class="header-for-light">
+		<h3 class="wow fadeInRight animated" data-wow-duration="1s">All Products</h3>
 
-							<ion-button  (click)="presentActionSheet()" >         
-							 	Sort <ion-icon name="funnel" ></ion-icon>
-							</ion-button>
+	</div>
 
-							
-							<h3 *ngIf="!articles?.length" class="message">No products found</h3>
-							<div class="cards-bg social-cards">
+	<ion-searchbar [(ngModel)]="keyword" [showCancelButton]="shouldShowCancel" (keyup.enter)="list()" (ionCancel)="onCancel($event)">
+	</ion-searchbar>
 
-									
-										<h3 *ngIf="!articles.length">No products</h3>
-										<ion-card *ngFor="let article of articles" class="col-md-3 text-center" (click)="productDetails(article._id)">
-												
-												<ion-item >
-												  <h4>{{ article.name}}</h4>
-												</ion-item>
-											  
-												<img [src]="article.image_path" class="img-responsive" alt="">
-											  
-												<ion-card-content>
-												  <p>{{ article.description }}</p>
-												</ion-card-content>
-											  
-												<ion-row>
-												  <ion-col>	
-													  <div>Price: $ {{ article.price }}</div>			
-												  </ion-col>
-												  <ion-col>	
-														<div>Category: {{ article?.category }}</div>			
-													</ion-col>
-												
-												 
-												</ion-row>
-											  
-												</ion-card>
-											
-									</div>
+	<ion-button (click)="presentActionSheet()">
+		Sort <ion-icon name="funnel"></ion-icon>
+	</ion-button>
+
+
+	<h3 *ngIf="!articles?.length" class="message">No products found</h3>
+	<div class="cards-bg social-cards">
+
+		<h3 *ngIf="!articles?.length">No products</h3>
+		<ion-card *ngFor="let article of articles" class="col-md-3 text-center" (click)="productDetails(article._id)">
+
+			<ion-item>
+				<h4>{{ article.name}}</h4>
+			</ion-item>
+
+			<img [src]="article.image_path" class="img-responsive" alt="">
+
+			<ion-card-content>
+				<p>{{ article.description }}</p>
+			</ion-card-content>
+
+			<ion-row>
+				<ion-col>
+					<div>Price: $ {{ article.price }}</div>
+				</ion-col>
+				<ion-col>
+					<div>Category: {{ article?.category }}</div>
+				</ion-col>
+
+
+			</ion-row>
+
+		</ion-card>
+
+	</div>
 
 </ion-content>
 <app-footer [ngClass]="{'fixed': articles?.length >= 2 ? false : true }"></app-footer>

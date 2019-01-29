@@ -863,7 +863,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<meta charset=\"utf-8\" />\n<link rel=\"icon\" type=\"image/png\" href=\"../../assets/img/favicon.ico\">\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\n<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />\n<meta name=\"viewport\" content=\"width=device-width\" />\n\n<!-- <link href=\"../../assets/css/bootstrap.min.css\" rel=\"stylesheet\" /> -->\n<link href=\"../../assets/css/animate.min.css\" rel=\"stylesheet\" />\n<link href=\"../../assets/css/light-bootstrap-dashboard.css\" rel=\"stylesheet\" />\n<link href=\"../../assets/css/demo.css\" rel=\"stylesheet\" />\n<link href=\"http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css\" rel=\"stylesheet\">\n<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>\n<link href=\"../../assets/css/pe-icon-7-stroke.css\" rel=\"stylesheet\" />\n\n<ion-content>\n  \n<div class=\"wrapper\">\n    <div class=\"sidebar\" data-color=\"gray\" data-image=\"../../assets/img/sidebar-3.jpg\">\n    <div class=\"sidebar-wrapper\">\n        <ul class=\"nav\">\n          <li class=\"active\" style=\"cursor: pointer\">\n            <a (click)=\"activeLayer = users; isUserActive = true\">\n              <i class=\"pe-7s-note2\"></i>\n              <p>Users </p>\n            </a>\n          </li>\n          <li class=\"active\" style=\"cursor: pointer\">\n            <a (click)=\"activeLayer = products; isUserActive = false\">\n              <i class=\"pe-7s-note2\"></i>\n              <p>Products </p>\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  \n    <div class=\"main-panel\">\n      <nav class=\"navbar navbar-default navbar-fixed\">\n        <div class=\"container-fluid\">\n  \n          <div class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav navbar-left\">\n              <li><h1>ADMIN PANEL</h1></li>\n            </ul>\n            <ul class=\"nav navbar-nav navbar-right\">\n              <li>\n                <a [routerLink]=\"['/']\">\n                  Close\n                </a>\n              </li>\n            </ul>\n          </div>\n        </div>\n      </nav>\n      <div class=\"content\">\n        <div class=\"container-fluid\">\n            <div class=\"row\">\n              <div class=\"col-md-12\">\n                <h3 *ngIf=\"message\"> {{ message }} </h3>\n              </div>\n            </div>\n          <div class=\"row\">\n            <div class=\"col-md-12\">\n              <div class=\"card\">\n                <div class=\"header\">\n                  <h4 class=\"title\">{{ isUserActive ? 'Users' : 'Products' }} List</h4>\n                </div>\n                <div class=\"content table-responsive table-full-width\">\n                  <table class=\"table table-hover table-striped\">\n                    <thead>\n                      <th>ID</th>\n                      <th *ngIf=\"!isUserActive\">Name</th>\n                      <th>{{ isUserActive ? 'Role' : 'Category' }}</th>\n                      <th>{{ isUserActive ? 'Email' : 'Condition' }}</th>\n                      <th>{{ isUserActive ? 'Username' : 'Price' }}</th>\n                      <th *ngIf=\"!isUserActive\">{{ isUserActive ? 'Password' : 'Status' }}</th>\n                      <th>Action</th>\n                    </thead>\n                    <tbody>\n                      <tr *ngFor=\"let record of activeLayer; let x = index\">\n                        <td>{{x + 1}}</td>\n                        <td *ngIf=\"!isUserActive\">{{ record.name }}</td>\n                        <td>{{ isUserActive ? record.role : record.category_id}}</td>\n                        <td>{{ isUserActive ? record.email : record.condition}}</td>\n                        <td>{{ isUserActive ? record.username : record.price}}</td>\n                        <td *ngIf=\"!isUserActive\">{{ record.approved ? 'Approved' : 'Unapproved' }}</td>\n                        <td>\n                          <a *ngIf=\"!isUserActive\" style=\"cursor: pointer\" (click)=\"action(record)\">{{ record && record?.approved ? 'Unapprove' : 'Approved' }}</a>\n                          &nbsp;&nbsp;\n                          <a style=\"cursor: pointer\" (click)=\"delete(record._id)\">Delete</a>\n                        </td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n  \n      <footer class=\"footer\">\n        <div class=\"container-fluid\">\n  \n          <p class=\"copyright pull-right\">\n            <a href=\"\">Copyright В© 2018</a> Hochshule Fulda,lepziger strasse | All rights reserved.<br>Designed by <a\n              href=\"\" target=\"_blank\">FD#3 Team GDSD Group</a>\n          </p>\n        </div>\n      </footer>\n    </div>\n  </div>\n</ion-content>"
+module.exports = "<ion-content>\r\n  <ion-header>\r\n    <ion-toolbar color=\"secondary\">\r\n    <ion-buttons slot=\"start\">\r\n        <ion-button [routerLink]=\"['']\">\r\n          <ion-icon name=\"home\"></ion-icon>\r\n        </ion-button>\r\n      </ion-buttons>\r\n      <ion-title>\r\n        Admin Panel\r\n        <span>\r\n          <h5 style=\"color:white\"><b>{{ isUserActive ? 'Users' : 'Products' }} List</b></h5>\r\n        </span>\r\n      </ion-title>\r\n    </ion-toolbar>\r\n  </ion-header>\r\n\r\n  <ion-list>\r\n      <ion-list-header>Sort Results</ion-list-header>\r\n    \r\n      <ion-item *ngIf=\"isUserActive\">\r\n        <ion-label>Filter By</ion-label>\r\n        <ion-select placeholder=\"Select One\" (ionChange)=\"sort($event.target.value)\"\r\n        [(ngModel)]=\"sortBy\">\r\n          <ion-select-option value=\"email\">Email</ion-select-option>\r\n          <ion-select-option value=\"role\">Role</ion-select-option>\r\n          <ion-select-option value=\"username\">Username</ion-select-option>\r\n        </ion-select>\r\n      </ion-item>\r\n    \r\n    </ion-list>\r\n  \r\n  <ion-card *ngFor=\"let record of activeLayer; let x = index\">\r\n    <ion-card-header>\r\n      <ion-card-title>{{ isUserActive ? record.username : record.name }}</ion-card-title>\r\n    </ion-card-header>\r\n\r\n    <ion-item>\r\n      <ion-label>\r\n        <ion-col><b>ID</b></ion-col>\r\n        <ion-col>{{x + 1}}</ion-col>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item *ngIf=\"isUserActive\">\r\n      <ion-label>\r\n        <ion-col>Role</ion-col>\r\n        <ion-col>{{ record.role }}</ion-col>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item>\r\n      <ion-label>\r\n        <ion-col>{{ isUserActive ? 'Email' : 'Condition' }}</ion-col>\r\n        <ion-col>{{ isUserActive ? record.email : record.condition}}</ion-col>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item *ngIf=\"!isUserActive\">\r\n      <ion-label>\r\n        <ion-col>Price</ion-col>\r\n        <ion-col>{{record.price}}</ion-col>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item *ngIf=\"!isUserActive\">\r\n      <ion-label>\r\n        <ion-col>{{ isUserActive ? 'Password' : 'Status' }}</ion-col>\r\n        <ion-col>{{ record.approved ? 'Approved' : 'Unapproved' }}</ion-col>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item>\r\n      <ion-label>\r\n        <ion-col>Action</ion-col>\r\n        <ion-col>\r\n          <a *ngIf=\"!isUserActive\" style=\"cursor: pointer\" (click)=\"action(record)\">{{ record &&\r\n            record?.approved ? 'Unapprove' : 'Approve' }}</a>\r\n          &nbsp;&nbsp;\r\n          <a style=\"cursor: pointer\" (click)=\"delete(record._id)\">Delete</a></ion-col>\r\n      </ion-label>\r\n    </ion-item>\r\n  </ion-card>\r\n\r\n</ion-content>\r\n\r\n\r\n<ion-tab-bar slot=\"bottom\">\r\n  <ion-tab-button tab=\"products\" (click)=\"activeLayer = products; isUserActive = false\">\r\n    <ion-label>Products</ion-label>\r\n    <ion-icon name=\"filing\"></ion-icon>\r\n  </ion-tab-button>\r\n\r\n  <ion-tab-button tab=\"users\" (click)=\"activeLayer = users; isUserActive = true\">\r\n    <ion-label>Users</ion-label>\r\n    <ion-icon name=\"people\"></ion-icon>\r\n  </ion-tab-button>\r\n</ion-tab-bar>"
 
 /***/ }),
 
@@ -892,6 +892,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_signing_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/signing.service */ "./src/app/services/signing.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -906,17 +907,35 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AdminPanelComponent = /** @class */ (function () {
-    function AdminPanelComponent(title, signingService, route, router) {
+    function AdminPanelComponent(title, signingService, route, router, menu) {
         this.title = title;
         this.signingService = signingService;
         this.route = route;
         this.router = router;
+        this.menu = menu;
+        this.sortBy = 'Username';
     }
     AdminPanelComponent.prototype.ngOnInit = function () {
         this.title.setTitle('Admin Panel - Fulda Buy & Sell');
         this.loadProducts();
         this.loadUsers();
+    };
+    AdminPanelComponent.prototype.sort = function (sortBy) {
+        console.log('type : ', sortBy);
+        var swapped;
+        do {
+            swapped = false;
+            for (var i = 0; i < this.activeLayer.length - 1; i++) {
+                if (this.activeLayer[i][sortBy] > this.activeLayer[i + 1][sortBy]) {
+                    var temp = this.activeLayer[i];
+                    this.activeLayer[i] = this.activeLayer[i + 1];
+                    this.activeLayer[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+        } while (swapped);
     };
     AdminPanelComponent.prototype.action = function (record) {
         var _this = this;
@@ -924,7 +943,12 @@ var AdminPanelComponent = /** @class */ (function () {
         this.signingService.changeProductStatus(record)
             .subscribe(function (result) {
             console.log(result);
-            _this.loadProducts();
+            if (result['status']) {
+                _this.signingService.presentToast(result['message']);
+                _this.isUserActive
+                    ? _this.loadUsers()
+                    : _this.loadProducts();
+            }
         }, function (err) { return console.log(err); });
     };
     AdminPanelComponent.prototype.delete = function (id) {
@@ -934,13 +958,10 @@ var AdminPanelComponent = /** @class */ (function () {
             .subscribe(function (result) {
             console.log(result);
             if (result['status']) {
-                _this.message = result['message'];
+                _this.signingService.presentToast(result['message']);
                 _this.isUserActive
                     ? _this.loadUsers()
                     : _this.loadProducts();
-                setTimeout(function () {
-                    _this.message = null;
-                }, 3000);
             }
         }, function (err) { return console.log(err); });
     };
@@ -948,6 +969,7 @@ var AdminPanelComponent = /** @class */ (function () {
         var _this = this;
         this.signingService.searchProducts({ name: null, admin: true })
             .subscribe(function (result) {
+            console.log(result);
             _this.products = result.body['product'];
             _this.activeLayer = _this.products;
             _this.isUserActive = false;
@@ -972,7 +994,8 @@ var AdminPanelComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["Title"],
             _services_signing_service__WEBPACK_IMPORTED_MODULE_3__["SigningService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"]])
     ], AdminPanelComponent);
     return AdminPanelComponent;
 }());
@@ -1256,7 +1279,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<footer id=\"footer-block\">\n  <div class=\"footer-copy color-scheme-1\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-md-4\">\n          <a style=\"cursor:pointer\" [routerLink]=\"['']\" class=\"header-logo\"> <img src=\"../../assets/img/logo-copy-shop.png\"\n              alt=\"\"></a>\n        </div>\n        <div class=\"col-md-4\">\n          <p class=\"text-center\">\n            <a href=\"\">Copyright В© 2018</a> Hochshule Fulda,lepziger strasse | All rights reserved.<br>Designed by\n            <a href=\"\" target=\"_blank\">FD#3 Team GDSD Group</a>\n          </p>\n        </div>\n        <div class=\"col-md-4\">\n          <ul class=\"footer-payments pull-right\">\n            <li><img src=\"../../assets/img/payment-maestro.jpg\" alt=\"payment\" /></li>\n            <li><img src=\"../../assets/img/payment-discover.jpg\" alt=\"payment\" /></li>\n            <li><img src=\"../../assets/img/payment-visa.jpg\" alt=\"payment\" /></li>\n            <li><img src=\"../../assets/img/payment-american-express.jpg\" alt=\"payment\" /></li>\n            <li><img src=\"../../assets/img/payment-paypal.jpg\" alt=\"payment\" /></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </div>\n</footer>"
+module.exports = "<ion-footer>\r\n  <ion-toolbar  color=\"secondary\">\r\n    <p class=\"text-center\">\r\n      <a href=\"\">Copyright © 2018-2019</a> Hochshule Fulda,lepziger strasse <br>\r\n        All rights reserved.<br>Designed by\r\n      <a href=\"\" target=\"_blank\">FD#3 Team GDSD Group</a>\r\n    </p>\r\n  </ion-toolbar>\r\n</ion-footer>\r\n\r\n"
 
 /***/ }),
 
@@ -1267,7 +1290,7 @@ module.exports = "<footer id=\"footer-block\">\n  <div class=\"footer-copy color
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Zvb3Rlci9mb290ZXIuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = ":root {\n  --ion-color-secondary: #80E9F9;\n  --ion-color-secondary-rgb: 0,102,0;\n  --ion-color-secondary-contrast: #ffffff;\n  --ion-color-secondary-contrast-rgb: 255,255,255;\n  --ion-color-secondary-shade: #80E9F9;\n  --ion-color-secondary-tint: #80E9F9; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZm9vdGVyL0Q6XFxkZXZcXGZicy1oeWJyaWQvc3JjXFxhcHBcXGZvb3RlclxcZm9vdGVyLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksK0JBQXNCO0VBQ3RCLG1DQUEwQjtFQUMxQix3Q0FBK0I7RUFDL0IsZ0RBQW1DO0VBQ25DLHFDQUE0QjtFQUM1QixvQ0FBMkIsRUFDNUIiLCJmaWxlIjoic3JjL2FwcC9mb290ZXIvZm9vdGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOnJvb3Qge1xyXG4gICAgLS1pb24tY29sb3Itc2Vjb25kYXJ5OiAjODBFOUY5O1xyXG4gICAgLS1pb24tY29sb3Itc2Vjb25kYXJ5LXJnYjogMCwxMDIsMDtcclxuICAgIC0taW9uLWNvbG9yLXNlY29uZGFyeS1jb250cmFzdDogI2ZmZmZmZjtcclxuICAgIC0taW9uLWNvbG9yLXNlY29uZGFyeS1jb250cmFzdC1yZ2I6IDI1NSwyNTUsMjU1O1xyXG4gICAgLS1pb24tY29sb3Itc2Vjb25kYXJ5LXNoYWRlOiAjODBFOUY5O1xyXG4gICAgLS1pb24tY29sb3Itc2Vjb25kYXJ5LXRpbnQ6ICM4MEU5Rjk7XHJcbiAgfSJdfQ== */"
 
 /***/ }),
 
@@ -1319,7 +1342,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header id=\"header\">\n\t<div class=\"header-bg\">\n\t\t<div class=\"header-main\" id=\"header-main-fixed\">\n\t\t\t<div class=\"header-main-block1\">\n\t\t\t\t<div class=\"container\">\n\t\t\t\t\t<div id=\"container-fixed\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-md-3\">\n\t\t\t\t\t\t\t\t<a style=\"cursor:pointer\" [routerLink]=\"['']\" class=\"header-logo\"> <img src=\"../../assets/img/logo.png\" class=\"img-responsive\"\n\t\t\t\t\t\t\t\t\t alt=\"\"></a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-5 col-md-offset-1\">\n\t\t\t\t\t\t\t\t<div class=\"top-search-form pull-left\">\n\t\t\t\t\t\t\t\t\t<form>\n\t\t\t\t\t\t\t\t\t\t<input type=\"text\" [(ngModel)]=\"searchKeyword\" (keyup.enter)=\"searchProducts()\" name=\"searchKeyword\"\n\t\t\t\t\t\t\t\t\t\t placeholder=\"Search a product...\" class=\"form-control\" style=\"color: white\">\n\t\t\t\t\t\t\t\t\t\t<button type=\"button\" (click)=\"searchProducts()\"><i class=\"fa fa-search\"></i></button>\n\t\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-3\">\n\t\t\t\t\t\t\t\t<div class=\"top-icons\">\n\t\t\t\t\t\t\t\t\t<div class=\"top-icon\" *ngIf=\"user && user?.role !== 'seller'\">\n\t\t\t\t\t\t\t\t\t\t<a style=\"cursor: pointer\" (click)=\"wishlist()\" title=\"Wishlist\"><i class=\"fa fa-heart\"></i></a>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"header-main-block2\">\n\t\t\t\t<nav class=\"navbar yamm  navbar-main\" role=\"navigation\">\n\n\t\t\t\t\t<div class=\"container\">\n\t\t\t\t\t\t<div class=\"navbar-header\">\n\t\t\t\t\t\t\t<button type=\"button\" data-toggle=\"collapse\" data-target=\"#navbar-collapse-1\" class=\"navbar-toggle\"><span class=\"icon-bar\"></span><span\n\t\t\t\t\t\t\t\t class=\"icon-bar\"></span><span class=\"icon-bar\"></span></button>\n\t\t\t\t\t\t\t<a style=\"cursor:pointer\" [routerLink]=\"['']\" class=\"navbar-brand\"><i class=\"fa fa-home\"></i></a>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div id=\"navbar-collapse-1\" class=\"navbar-collapse collapse \">\n\t\t\t\t\t\t\t<ul class=\"nav navbar-nav\">\n\n\t\t\t\t\t\t\t\t<li><a style=\"cursor: pointer\" (click)=\"allProducts()\">All Products</a></li>\n\t\t\t\t\t\t\t\t<li *ngIf=\"user && user.role != 'buyer'\"><a [routerLink]=\"['/product-create']\">Sell Product</a></li>\n\t\t\t\t\t\t\t\t<li *ngIf=\"user && user.role != 'buyer'\"><a [routerLink]=\"['/sales']\">Sales</a></li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t\t<ul class=\"nav navbar-nav navbar-right\">\n\t\t\t\t\t\t\t\t<li *ngIf=\"user && user.role == 'admin'\"><a [routerLink]=\"['/admin-panel']\">Admin Panel</a></li>\n\t\t\t\t\t\t\t\t<li class=\"dropdown\"><a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">Account <i class=\"fa fa-caret-right fa-rotate-45\"></i></a>\n\t\t\t\t\t\t\t\t\t<ul class=\"dropdown-menu list-unstyled fadeInUp animated\">\n\t\t\t\t\t\t\t\t\t\t<li *ngIf=\"!user\" style=\"cursor: pointer\">\n\t\t\t\t\t\t\t\t\t\t\t<a [routerLink]=\"['/login']\"> Login </a>\n\t\t\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t\t\t<li *ngIf=\"!user\" style=\"cursor: pointer\">\n\t\t\t\t\t\t\t\t\t\t\t<a [routerLink]=\"['/register']\"> Register</a>\n\t\t\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t\t\t<li *ngIf=\"user\" style=\"cursor: pointer\">\n\t\t\t\t\t\t\t\t\t\t\t<a (click)=\"profile()\"> Profile</a>\n\t\t\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t\t\t<li *ngIf=\"user\">\n\t\t\t\t\t\t\t\t\t\t\t<a style=\"cursor: pointer\" (click)=\"logout()\"> Logout</a>\n\t\t\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</nav>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<!-- /header-main-menu -->\n\t</div>\n</header>\n<!-- End header -->"
+module.exports = "<ion-header>\r\n\t<ion-toolbar color=\"secondary\">\r\n\t\t<ion-item color=\"secondary\">\r\n\r\n\t\t<ion-buttons slot=\"start\">\r\n\t\t\t<ion-button [routerLink]=\"['']\">\r\n\t\t\t\t<ion-icon name=\"home\"></ion-icon>\r\n\t\t\t</ion-button>\r\n\t\t</ion-buttons>\r\n\t\r\n\r\n\t\t<ion-buttons *ngIf=\"user && user.role != 'buyer'\" >\r\n\t\t\t<ion-button [routerLink]=\"['/product-create']\">\r\n\t\t\t\t<ion-icon name=\"add-circle\"></ion-icon>\r\n\t\t\t</ion-button>\r\n\t\t</ion-buttons>\r\n\r\n\t\t<ion-buttons *ngIf=\"user && user.role != 'buyer'\"  >\r\n\t\t\t\t<ion-button [routerLink]=\"['/sales']\">\r\n\t\t\t\t\t<ion-icon name=\"paper\"></ion-icon>\r\n\t\t\t\t</ion-button>\r\n\t\t\t</ion-buttons>\r\n\t\r\n\r\n\t\t<ion-buttons slot=\"end\" *ngIf=\"user\" >\r\n\t\t\t<ion-button [routerLink]=\"['/wishlist']\">\r\n\t\t\t\t<ion-icon name=\"cart\"></ion-icon>\r\n\t\t\t</ion-button>\r\n\t\t</ion-buttons>\r\n\r\n\t\t<ion-buttons slot=\"end\" *ngIf=\"user && user.role == 'admin'\" >\r\n\t\t\t<ion-button [routerLink]=\"['/admin-panel']\">\r\n\t\t\t\t<ion-icon name=\"cog\"></ion-icon>\r\n\t\t\t</ion-button>\r\n\t\t</ion-buttons>\r\n\t\t\r\n\r\n\t\t<ion-buttons *ngIf=\"!user\"  slot=\"end\">\r\n\t\t\t<ion-button [routerLink]=\"['/login']\">\r\n\t\t\t\t<ion-icon name=\"log-in\"></ion-icon>\r\n\t\t\t</ion-button>\r\n\t\t</ion-buttons>\r\n\r\n\t\t<ion-buttons *ngIf=\"user\" slot=\"end\">\r\n\t\t\t<ion-button (click)=\"logout()\">\r\n\t\t\t\t<ion-icon name=\"log-out\"></ion-icon>\r\n\t\t\t</ion-button>\r\n\t\t</ion-buttons>\r\n\t</ion-item>\r\n\t<ion-item color=\"secondary\">\r\n\t\t<ion-searchbar name=\"searchKeyword\" [(ngModel)]=\"searchKeyword\" placeholder=\"Search Products\" [showCancelButton]=\"shouldShowCancel\" (keyup.enter)=\"searchProducts()\"\r\n\t\t(ionCancel)=\"onCancel($event)\">\r\n\t   </ion-searchbar>\r\n\t</ion-item>\r\n\t</ion-toolbar>\r\n</ion-header>"
 
 /***/ }),
 
@@ -1330,7 +1353,7 @@ module.exports = "<header id=\"header\">\n\t<div class=\"header-bg\">\n\t\t<div 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2hlYWRlci9oZWFkZXIuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "ion-title {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 0 90px 1px;\n  width: 100%;\n  height: 100%;\n  text-align: center; }\n\n:root {\n  --ion-color-secondary: #80E9F9;\n  --ion-color-secondary-rgb: 0,102,0;\n  --ion-color-secondary-contrast: #ffffff;\n  --ion-color-secondary-contrast-rgb: 255,255,255;\n  --ion-color-secondary-shade: #80E9F9;\n  --ion-color-secondary-tint: #80E9F9; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaGVhZGVyL0Q6XFxkZXZcXGZicy1oeWJyaWQvc3JjXFxhcHBcXGhlYWRlclxcaGVhZGVyLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksbUJBQWtCO0VBQ2xCLE9BQU07RUFDTixRQUFPO0VBQ1Asb0JBQW1CO0VBQ25CLFlBQVc7RUFDWCxhQUFZO0VBQ1osbUJBQWtCLEVBQ25COztBQUVEO0VBQ0UsK0JBQXNCO0VBQ3RCLG1DQUEwQjtFQUMxQix3Q0FBK0I7RUFDL0IsZ0RBQW1DO0VBQ25DLHFDQUE0QjtFQUM1QixvQ0FBMkIsRUFDNUIiLCJmaWxlIjoic3JjL2FwcC9oZWFkZXIvaGVhZGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLXRpdGxlIHtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHRvcDogMDtcclxuICAgIGxlZnQ6IDA7XHJcbiAgICBwYWRkaW5nOiAwIDkwcHggMXB4O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgfVxyXG5cclxuICA6cm9vdCB7XHJcbiAgICAtLWlvbi1jb2xvci1zZWNvbmRhcnk6ICM4MEU5Rjk7XHJcbiAgICAtLWlvbi1jb2xvci1zZWNvbmRhcnktcmdiOiAwLDEwMiwwO1xyXG4gICAgLS1pb24tY29sb3Itc2Vjb25kYXJ5LWNvbnRyYXN0OiAjZmZmZmZmO1xyXG4gICAgLS1pb24tY29sb3Itc2Vjb25kYXJ5LWNvbnRyYXN0LXJnYjogMjU1LDI1NSwyNTU7XHJcbiAgICAtLWlvbi1jb2xvci1zZWNvbmRhcnktc2hhZGU6ICM4MEU5Rjk7XHJcbiAgICAtLWlvbi1jb2xvci1zZWNvbmRhcnktdGludDogIzgwRTlGOTtcclxuICB9Il19 */"
 
 /***/ }),
 
@@ -1366,6 +1389,7 @@ var HeaderComponent = /** @class */ (function () {
         this.route = route;
     }
     HeaderComponent.prototype.ngOnInit = function () {
+        this.keyword = this.route.snapshot.params.name;
         var url = this.router.url;
         if (localStorage.getItem('user')) {
             this.user = JSON.parse(localStorage.getItem('user'));
@@ -1459,7 +1483,7 @@ var HeaderComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n\t<app-header></app-header>\n\n\t<div class=\"container\" style=\"margin-top:150px; text-align: center!important\">\n\t\t<img src=\"../../assets/img/ecommerce.jpg\" class=\"img-responsive\">\n\t</div>\n\n\t<section>\n\t\t<div class=\"block color-scheme-2\">\n\t\t\t<div class=\"container\">\n\t\t\t\t<div class=\"header-for-light\">\n\t\t\t\t\t<h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Latest <span>Products</span></h1>\n\t\t\t\t</div>\n\t\t\t\t<h3 *ngIf=\"!articles.length\">No products</h3>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div *ngFor=\"let article of articles\" class=\"col-md-3 text-center\">\n\t\t\t\t\t\t<article class=\"product light\" (click)=\"productDetails(article._id)\" style=\"cursor: pointer!important\">\n\t\t\t\t\t\t\t<figure class=\"figure-hover-overlay\">\n\t\t\t\t\t\t\t\t<a class=\"figure-href\"></a>\n\t\t\t\t\t\t\t\t<img [src]=\"article.image_path\" class=\"img-overlay img-responsive\" alt=\"\">\n\t\t\t\t\t\t\t\t<img [src]=\"article.image_path\" class=\"img-responsive\" alt=\"\">\n\t\t\t\t\t\t\t</figure>\n\t\t\t\t\t\t\t<div class=\"product-caption\">\n\t\t\t\t\t\t\t\t<div class=\"block-name\">\n\t\t\t\t\t\t\t\t\t<a class=\"product-name\">{{ article.name }}</a>\n\t\t\t\t\t\t\t\t\t<p class=\"product-price\">{{ article.price }}</p>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<p class=\"description\">{{ article.description }}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</article>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</section>\n\n\t<section>\n\n\t\t<div class=\"block color-scheme-2\">\n\t\t\t<div class=\"container\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-md-4\">\n\t\t\t\t\t\t<article class=\"payment-service\">\n\t\t\t\t\t\t\t<a href=\"#\"></a>\n\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t<div class=\"col-md-4 text-center\">\n\t\t\t\t\t\t\t\t\t<i class=\"fa fa-thumbs-up\"></i>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"col-md-8\">\n\t\t\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t\t\t<h3 class=\"color-active\">Safe Payments</h3>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</article>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-md-4\">\n\t\t\t\t\t\t<article class=\"payment-service\">\n\t\t\t\t\t\t\t<a href=\"#\"></a>\n\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t<div class=\"col-md-4 text-center\">\n\t\t\t\t\t\t\t\t\t<i class=\"fa fa-truck\"></i>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"col-md-8\">\n\t\t\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t\t\t<h3 class=\"color-active\">Free shipping</h3>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</article>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-md-4\">\n\t\t\t\t\t\t<article class=\"payment-service\">\n\t\t\t\t\t\t\t<a href=\"#\"></a>\n\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t<div class=\"col-md-4 text-center\">\n\t\t\t\t\t\t\t\t\t<i class=\"fa fa-fax\"></i>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"col-md-8\">\n\t\t\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t\t\t<h3 class=\"color-active\">24/7 Support</h3>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</article>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\n\n\t\t\t</div>\n\t\t</div>\n\n\t</section>\n\t<app-footer></app-footer>\n</ion-content>"
+module.exports = "<app-header></app-header>\r\n<ion-content>\r\n\t<h3>Fulda Buy & Sell</h3>\r\n\t<img src=\"../../assets/img/ecommerce.jpg\" class=\"img-responsive\">\r\n\r\n\r\n\t<div class=\"cards-bg social-cards\">\r\n\r\n\t\t<h3 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Latest <span>Products</span></h3>\r\n\t\t<h3 *ngIf=\"!articles.length\">No products</h3>\r\n\t\t<ion-card *ngFor=\"let article of articles\" class=\"col-md-3 text-center\" (click)=\"productDetails(article._id)\">\r\n\r\n\t\t\t<ion-item>\r\n\t\t\t\t<h4>{{ article.name}}</h4>\r\n\t\t\t</ion-item>\r\n\r\n\t\t\t<img [src]=\"article.image_path\" class=\"img-responsive\" alt=\"\">\r\n\r\n\t\t\t<ion-card-content>\r\n\t\t\t\t<p>{{ article.description }}</p>\r\n\t\t\t</ion-card-content>\r\n\r\n\t\t\t<ion-row>\r\n\t\t\t\t<ion-col>\r\n\t\t\t\t\t<div>Price: $ {{ article.price }}</div>\r\n\t\t\t\t</ion-col>\r\n\t\t\t\t<ion-col>\r\n\t\t\t\t\t<div>Category: {{ article?.category }}</div>\r\n\t\t\t\t</ion-col>\r\n\r\n\r\n\t\t\t</ion-row>\r\n\r\n\t\t</ion-card>\r\n\r\n\t</div>\r\n\t<ion-button color=\"secondary\" (click)=\"allProducts()\">\r\n\t\tAll Products\r\n\t</ion-button>\r\n\t<app-footer></app-footer>\r\n</ion-content>"
 
 /***/ }),
 
@@ -1470,7 +1494,7 @@ module.exports = "<ion-content>\n\t<app-header></app-header>\n\n\t<div class=\"c
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-content .scroll-content {\n  overflow: auto !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9EOlxcZGV2XFxnZHNkLWlvbmljL3NyY1xcYXBwXFxob21lXFxob21lLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsMEJBQTBCLEVBQzNCIiwiZmlsZSI6InNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWNvbnRlbnQgLnNjcm9sbC1jb250ZW50IHtcclxuICBvdmVyZmxvdyA6IGF1dG8gIWltcG9ydGFudDtcclxufSJdfQ== */"
+module.exports = "ion-content .scroll-content {\n  overflow: auto !important; }\n\n.social-cards ion-col {\n  padding: 0; }\n\nh3 {\n  text-align: center;\n  font-weight: bold; }\n\nion-button {\n  width: 100%; }\n\nion-item h4 {\n  font-weight: bold; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9EOlxcZGV2XFxmYnMtaHlicmlkL3NyY1xcYXBwXFxob21lXFxob21lLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsMEJBQTBCLEVBQzNCOztBQUNEO0VBQ0UsV0FBVSxFQUNYOztBQUVEO0VBQ0UsbUJBQWtCO0VBQ2xCLGtCQUFpQixFQUNsQjs7QUFFRDtFQUNFLFlBQVUsRUFFWDs7QUFFRDtFQUNFLGtCQUFpQixFQUNsQiIsImZpbGUiOiJzcmMvYXBwL2hvbWUvaG9tZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jb250ZW50IC5zY3JvbGwtY29udGVudCB7XG4gIG92ZXJmbG93IDogYXV0byAhaW1wb3J0YW50O1xufVxuLnNvY2lhbC1jYXJkcyBpb24tY29sIHtcbiAgcGFkZGluZzogMDtcbn1cblxuaDN7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbmlvbi1idXR0b257XG4gIHdpZHRoOjEwMCU7IFxuXG59XG5cbmlvbi1pdGVtIGg0e1xuICBmb250LXdlaWdodDogYm9sZDtcbn0iXX0= */"
 
 /***/ }),
 
@@ -1527,6 +1551,15 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.productDetails = function (id) {
         this.router.navigate(['product-detail', { id: id }]);
     };
+    HomeComponent.prototype.allProducts = function () {
+        var url = this.router.url;
+        if (url.search('product-listing') === -1) {
+            this.router.navigate(['product-listing']);
+        }
+        else {
+            this.router.navigate(['refresh', { route: 'product-listing' }]);
+        }
+    };
     HomeComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-home',
@@ -1551,7 +1584,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\r\n    <app-header></app-header>\r\n    <section>\r\n      <div class=\"second-page-container\">\r\n        <div class=\"container\">\r\n          <div class=\"row\">\r\n    \r\n            <div class=\"col-md-9\">\r\n    \r\n              <div class=\"header-for-light\">\r\n                <h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">My Sales</h1>\r\n              </div>\r\n    \r\n              <h3 *ngIf=\"articles && articles['length'] < 1\" class=\"message\">No Products in Wishlist</h3>\r\n            <div class=\"row\" *ngIf=\"articles && articles['length']\">\r\n              <div class=\"col-md-12\">\r\n                <table class=\"cart-table table wow fadeInLeft\" data-wow-duration=\"1s\">\r\n                  <thead>\r\n                    <tr>\r\n                      <th class=\"card_product_image\">Image</th>\r\n                      <th class=\"card_product_name\">Product Name</th>\r\n                      <th class=\"card_product_quantity\">Condition</th>\r\n                      <th class=\"card_product_price\">Price</th>\r\n                      <th class=\"card_product_price\">Approved</th>\r\n                      <th class=\"card_product_price\">Sold</th>\r\n                      <th class=\"card_product_remove\">Removed</th>\r\n                    </tr>\r\n                  </thead>\r\n                  <tbody>\r\n                    <tr *ngFor=\"let article of articles\">\r\n                      <td class=\"card_product_image\" data-th=\"Image\"><a><img title=\"Product Name\" alt=\"Product Name\" [src]=\"article.image_path\"></a></td>\r\n                      <td class=\"card_product_name\" data-th=\"Product Name\"><a>{{article.name}}</a><br>\r\n                      </td>\r\n                      <td class=\"card_product_quantity\" data-th=\"Quantity\">\r\n                        {{article.condition}}\r\n                      </td>\r\n                      <td class=\"card_product_price\" data-th=\"Unit Price\">€ {{article.price}}</td>\r\n                      <td class=\"card_product_price\" data-th=\"Unit Price\">{{article.approved}}</td>\r\n                      <td class=\"card_product_price\" data-th=\"Unit Price\">{{article.sold}}</td>\r\n                      <td class=\"card_product_price\" data-th=\"Unit Price\">\r\n                        <span *ngIf=\"article.deleted\">Removed</span>\r\n                        <span *ngIf=\"article.sold\">Already sold</span>\r\n                        <span *ngIf=\"!article.deleted && !article.sold\"><button style=\"cursor: pointer\" class=\"btn-default-1\" (click)=\"removeProduct(article._id)\">Remove</button></span>\r\n                      </td>\r\n                    </tr>\r\n    \r\n                  </tbody>\r\n                </table>\r\n              </div>\r\n            </div>\r\n    \r\n            </div>\r\n          </div>\r\n          <br>\r\n          <div class=\"header-for-light\">\r\n            <div class=\"row\">\r\n              <div class=\"cold-md-4\"><h2 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Total Approved: {{ approved }}</h2></div>\r\n              <div class=\"cold-md-4\"><h2 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Total Sold: {{ sold }}</h2></div>\r\n              <div class=\"cold-md-4\"><h2 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Total Sales: € {{ total }}</h2></div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    \r\n    </section>\r\n    <app-footer [ngClass]=\"{'fixed': articles?.length >= 2 ? false : true }\"></app-footer>\r\n</ion-content>"
+module.exports = "<ion-content>\r\n  <app-header></app-header>\r\n  <ion-toolbar>\r\n    <ion-title>\r\n      <div class=\"header-for-light\">\r\n        <h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">My <span>Sales</span></h1>\r\n      </div>\r\n    </ion-title>\r\n    <ion-title *ngIf=\"articles && articles['length'] < 1\">\r\n      <h3>No Products Sold Yet</h3>\r\n    </ion-title>\r\n  </ion-toolbar>\r\n\r\n\r\n\r\n  <div *ngIf=\"articles && articles['length']\">\r\n    <ion-card *ngFor=\"let article of articles\">\r\n      <ion-card-header>\r\n        <ion-card-title>{{article.name}}</ion-card-title>\r\n      </ion-card-header>\r\n\r\n      <ion-card-content>\r\n        <ion-img [src]=\"article.image_path\"></ion-img>\r\n        <ion-item>\r\n          <ion-label>Note</ion-label>\r\n          <ion-label>{{article.description}}</ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>Condition</ion-label>\r\n          <ion-label>{{article.condition}}</ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>Price</ion-label>\r\n          <ion-label>€ {{article.price}}</ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>Approved</ion-label>\r\n          <ion-label>{{article.approved}}</ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>Sold</ion-label>\r\n          <ion-label>{{article.sold}}</ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>Remove</ion-label>\r\n          <ion-label>\r\n            <span *ngIf=\"article.deleted\">Removed</span>\r\n            <span *ngIf=\"article.sold\">Already sold</span>\r\n            <span *ngIf=\"!article.deleted && !article.sold\">\r\n              <ion-button style=\"cursor: pointer\" color=\"secondary\" (click)=\"removeProduct(article._id)\">\r\n                Remove\r\n              </ion-button>\r\n            </span>\r\n          </ion-label>\r\n        </ion-item>\r\n      </ion-card-content>\r\n    </ion-card>\r\n\r\n    <ion-card>\r\n      <ion-card-header>\r\n        <ion-card-title>Total</ion-card-title>\r\n      </ion-card-header>\r\n\r\n      <ion-item>\r\n        <ion-label>Total Approved</ion-label>\r\n        <ion-label>{{ approved }}</ion-label>\r\n      </ion-item>\r\n      <ion-item>\r\n        <ion-label>Total Sales</ion-label>\r\n        <ion-label>€ {{ total }}</ion-label>\r\n      </ion-item>\r\n      <ion-item>\r\n        <ion-label>Total Sold</ion-label>\r\n        <ion-label>{{ sold }}</ion-label>\r\n      </ion-item>\r\n    </ion-card>\r\n  </div>\r\n\r\n  <app-footer></app-footer>\r\n</ion-content>"
 
 /***/ }),
 
@@ -1578,7 +1611,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrdersHistoryComponent", function() { return OrdersHistoryComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_signing_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/signing.service */ "./src/app/services/signing.service.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1588,7 +1620,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 var OrdersHistoryComponent = /** @class */ (function () {
@@ -1616,14 +1647,14 @@ var OrdersHistoryComponent = /** @class */ (function () {
                     article.approved ? _this.approved++ : null;
                     article.sold ? _this.sold++ : null;
                     article.sold ? _this.total += article.price : null;
-                    article.image_path = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl + '/' + article.image_path;
+                    // article.image_path = environment.apiUrl + '/' + article.image_path;
                 });
             }
             else {
-                _this.message = 'No sales yet';
+                _this.signingService.presentToast('No sales yet');
             }
             if (result['body'] && !result['body']['status']) {
-                _this.message = result['body']['message'];
+                _this.signingService.presentToast(result['body']['message']);
             }
         }, function (err) { return console.log(err); });
     };
@@ -1656,7 +1687,7 @@ var OrdersHistoryComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n    <app-header></app-header>\n\n    <section>\n      <div class=\"second-page-container\">\n        <div class=\"block\">\n          <div class=\"container\">\n            <div class=\"header-for-light col-md-12 row\">\n              <div class=\"col-md-4\">\n              </div>\n              <div class=\"col-md-12\">\n                <h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Post your <span>Product</span></h1>\n              </div>\n              <div class=\"col-md-2\">\n              </div>\n            </div>\n            <h3 *ngIf=\"message\" class=\"message\">{{message}}</h3>\n            <div class=\"row\">\n              <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n                <div class=\"block-form box-border wow fadeInLeft animated\" data-wow-duration=\"1s\">\n                  <h3>What are you offering?</h3>\n                  <hr>\n                  <form [formGroup]=\"form\" class=\"form-horizontal\">\n                    <div class=\"form-group\">\n                      <label class=\"col-sm-3 control-label\">Product Name:<span class=\"text-error\">*</span></label>\n                      <div class=\"col-sm-9\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"name\" name=\"productName\" id=\"productName\" placeholder=\"Product Name\">\n                        <div *ngIf=\"name.touched && name.invalid\">\n                          <div *ngIf=\"name.errors?.required\">Name is required</div>\n                        </div>\n                      </div>\n                    </div>\n    \n                    <h3>Choose Category</h3>\n                    <hr>\n                    <div class=\"form-group\">\n                      <label class=\"col-sm-3 control-label\">Category:</label>\n                      <div class=\"col-sm-9\">\n                        <select name=\"category\" formControlName=\"category_id\" class=\"form-control\">\n                          <option *ngFor=\"let category of categories\" [value]=\"category._id\">{{category.name}}</option>\n                        </select>\n                        <div *ngIf=\"category_id.touched && category_id.invalid\">\n                          <div *ngIf=\"category_id.errors?.required\">Category is required</div>\n                        </div>\n                      </div>\n                    </div>\n    \n                    <hr>\n                    <h3>Choose Condition<span class=\"text-error\">*</span></h3>\n                    <div class=\"form-group\">\n                      <label class=\"col-sm-3 control-label\">Condition:<span class=\"text-error\">*</span></label>\n                      <div class=\"col-sm-9\">\n                        <select name=\"condition\" id=\"condition\" placeholder=\"Select from dropdown\" formControlName=\"condition\" class=\"form-control\">\n                          <option *ngFor=\"let num of [1,2,3,4,5]\" [value]=\"num\">{{num}}</option>\n                        </select>\n                        <div *ngIf=\"condition.touched && condition.invalid\">\n                          <div *ngIf=\"condition.errors?.required\">Condition is required</div>\n                        </div>\n                      </div>\n                    </div>\n    \n                    <hr>\n                    <h3>Description</h3>\n                    <div class=\"form-group\">\n                      <label class=\"col-sm-3 control-label\">Description:</label>\n                      <div class=\"col-sm-9\">\n                        <input type=\"textarea\" formControlName=\"description\" name=\"description\" id=\"description\" class=\"form-control\" id=\"description\" />\n                        <div *ngIf=\"description.touched && description.invalid\">\n                          <div *ngIf=\"description.errors?.required\">Description is required</div>\n                        </div>                  \n                      </div>\n                    </div>\n                    <hr>\n                    <h3>Set Price</h3>\n                    <div class=\"form-group\">\n                      <label class=\"col-sm-3 control-label\">Price:</label>\n                      <div class=\"col-sm-9\">\n                        <input type=\"number\" formControlName=\"price\" name=\"price\" id=\"price\" min=\"0\" class=\"form-control\" id=\"price\">\n                        <div *ngIf=\"price.touched && price.invalid\">\n                          <div *ngIf=\"price.errors?.required\">Price is required</div>\n                        </div>\n                      </div>\n                    </div>\n                    <hr>\n                    <h3>Upload Image</h3>\n                    <div class=\"form-group\">\n                      <label class=\"col-sm-3 control-label\">Images:</label>\n                      <div class=\"col-sm-3\">\n                        <input type=\"file\" class=\"form-control\" id=\"inputfile\" class=\"inputfile\" name=\"single\" ng2FileSelect [uploader]=\"uploader\" />\n                      </div>\n                    </div>\n                    <hr>\n                    <div class=\"form-group\">\n                      <div class=\"col-sm-offset-2 col-sm-9\">\n                        <button \n                          type=\"submit\" \n                          [disabled] = \"form.invalid\"\n                          (click)=\"post()\" \n                          class=\"btn-default-1\"\n                          [ngStyle]=\"{'cursor': form.invalid ? 'not-allowed' : 'pointer'}\"\n                          style=\"width:100%\">\n                            Post Product\n                        </button>\n                      </div>\n                    </div>\n                  </form>\n                </div>\n              </article>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n    <app-footer></app-footer>\n</ion-content>"
+module.exports = "<app-header></app-header>\r\n\r\n<ion-content>\r\n\r\n  <div class=\"container\">\r\n              \r\n  <h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Post <span>Product</span></h1>\r\n  <h3 *ngIf=\"message\" class=\"message\">{{message}}</h3>\r\n\r\n  <form [formGroup]=\"form\" class=\"form-horizontal\">\r\n  <ion-list>\r\n\r\n\r\n    <ion-item>\r\n      <ion-input placeholder=\"Product Name\" formControlName=\"name\" name=\"productName\" id=\"productName\" clearInput></ion-input>\r\n      <div *ngIf=\"name.touched && name.invalid\">\r\n          <div *ngIf=\"name.errors?.required\">Name is required</div>\r\n        </div>\r\n    </ion-item>\r\n\r\n    <ion-item>\r\n        <ion-label>Category</ion-label>\r\n         <select name=\"category\" formControlName=\"category_id\" class=\"form-control\">\r\n            <option *ngFor=\"let category of categories\" [value]=\"category._id\">{{category.name}}</option>\r\n          </select>\r\n    </ion-item>\r\n\r\n    <ion-item>\r\n        <ion-label>Condition</ion-label>\r\n    <select name=\"condition\" id=\"condition\" formControlName=\"condition\" class=\"form-control\">\r\n        <option *ngFor=\"let num of [1,2,3,4,5]\" [value]=\"num\">{{num}}</option>\r\n      </select>\r\n      <div *ngIf=\"condition.touched && condition.invalid\">\r\n        <div *ngIf=\"condition.errors?.required\">Condition is required</div>\r\n      </div>\r\n    </ion-item>\r\n\r\n    <ion-item>\r\n      <ion-input type=\"number\" placeholder=\"Price\" formControlName=\"price\" name=\"price\" id=\"price\" min=\"0\"  id=\"price\"></ion-input>\r\n      <div *ngIf=\"price.touched && price.invalid\">\r\n          <div *ngIf=\"price.errors?.required\">Price is required</div>\r\n        </div>\r\n    </ion-item>\r\n\r\n\r\n    <ion-item>\r\n      <ion-textarea placeholder=\"Enter a description\" formControlName=\"description\" name=\"description\" id=\"description\"  id=\"description\"></ion-textarea>\r\n      <div *ngIf=\"description.touched && description.invalid\">\r\n          <div *ngIf=\"description.errors?.required\">Description is required</div>\r\n        </div> \r\n    </ion-item>\r\n \r\n\r\n  <ion-item>\r\n      <input type=\"file\" class=\"form-control\" id=\"inputfile\" class=\"inputfile\" name=\"single\" ng2FileSelect [uploader]=\"uploader\" />\r\n  </ion-item>\r\n\r\n</ion-list>\r\n  <ion-button color=\"secondary\"  \r\n      type=\"submit\"\r\n      (click)=\"post()\" \r\n      [ngStyle]=\"{'cursor': form.invalid ? 'not-allowed' : 'pointer'}\"\r\n      style=\"width:100%\">\r\n      Post Product\r\n</ion-button>\r\n</form>\r\n\r\n\r\n          </div> \r\n        \r\n    \r\n   \r\n</ion-content>\r\n<app-footer></app-footer>\r\n"
 
 /***/ }),
 
@@ -1774,13 +1805,13 @@ var ProductCreateComponent = /** @class */ (function () {
         if (result['status']) {
             this.form.reset();
             this.uploader.clearQueue();
-            this.message = result['message'];
+            this.signingService.presentToast(result['message']);
         }
     };
     ProductCreateComponent.prototype.onErrorItem = function (item, response, status, headers) {
         var error = JSON.parse(response);
         console.log('error =>', error);
-        this.message = error.err.message;
+        this.signingService.presentToast(error.err.message);
         this.uploader.clearQueue();
     };
     ProductCreateComponent = __decorate([
@@ -1808,7 +1839,7 @@ var ProductCreateComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n\t<app-header></app-header>\n\t<section>\n\t\t<div class=\"second-page-container\">\n\t\t\t<div class=\"container set-height\">\n\t\t\t\t<h3 *ngIf=\"message\" class=\"message\"> {{ message }} </h3>\n\t\t\t\t<div class=\"row\" *ngIf=\"!message\">\n\n\t\t\t\t\t<div class=\"col-md-9\">\n\t\t\t\t\t\t<br><br>\n\t\t\t\t\t\t<div class=\"header-for-light\">\n\t\t\t\t\t\t\t<h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s    \">{{ article?.name }}</h1>\n\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"block-product-detail\">\n\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t<div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6\">\n\t\t\t\t\t\t\t\t\t<div class=\"product-image\">\n\t\t\t\t\t\t\t\t\t\t<img id=\"product-zoom\" [src]=\"article?.image_path\" data-zoom-image=\"article?.image_path\" alt=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6\">\n\t\t\t\t\t\t\t\t\t<div class=\"product-detail-section\">\n\t\t\t\t\t\t\t\t\t\t<h3>{{article?.name}}</h3>\n\n\t\t\t\t\t\t\t\t\t\t<div class=\"product-information\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"clearfix\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"pull-left\">Category:</label> <a>{{article?.category}}</a><br>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"clearfix\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"pull-left\">Quality:</label> {{article?.condition}}\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"clearfix\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"pull-left\">Seller Name:</label> {{ article?.seller }}\n\t\t\t\t\t\t\t\t\t\t\t\t<span *ngIf=\"article?.buyer_id\" (click)=\"visitProfile()\" class=\"shopping-cart-buttons\" style=\"cursor: pointer\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a class=\"shoping\" style=\"width: 80px; height: 30px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tProfile\n\t\t\t\t\t\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"clearfix\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"pull-left\">Description:</label>\n\t\t\t\t\t\t\t\t\t\t\t\t<p class=\"description\">{{article?.description}}</p>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"clearfix\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"pull-left\">Price:</label>\n\t\t\t\t\t\t\t\t\t\t\t\t<p class=\"product-price\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t€ {{article?.price}}</p>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"shopping-cart-buttons\" *ngIf=\"article?.buyer_id\">\n\n\t\t\t\t\t\t\t\t\t\t\t\t<a *ngIf=\"!existInWishlist\" (click)=\"addToWishlist()\" class=\"shoping\" style=\"cursor:pointer;width:190px\"><i\n\t\t\t\t\t\t\t\t\t\t\t\t\t class=\"fa fa-shopping-cart\"></i>\n\t\t\t\t\t\t\t\t\t\t\t\t\tAdd to Wish List\n\t\t\t\t\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t\t\t\t\t<a *ngIf=\"existInWishlist\" (click)=\"addToWishlist()\" class=\"shoping\" style=\"width:300px\">\n\t\t\t\t\t\t\t\t\t\t\t\t\tProduct Added in Wish List\n\t\t\t\t\t\t\t\t\t\t\t\t</a>\n\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</section>\n\t<app-footer></app-footer>\n</ion-content>"
+module.exports = "<app-header></app-header>\r\n<ion-content>\r\n\t\t<h3>{{ article?.name }}</h3>\r\n\t\t<ion-card>\r\n\t\t\t\t<img id=\"product-zoom\" [src]=\"article?.image_path\" data-zoom-image=\"article?.image_path\" alt=\"\">\r\n\t\t\t\t<ion-card-content>\r\n\t\t\t\t<p>Description: {{ article?.description }}</p>\r\n\t\t\t\t<p>Category: {{ article?.category }}</p> \r\n\t\t\t\t<p>Price: ${{ article?.price }}</p> \r\n\t\t\t\t<ion-button  color=\"secondary\" (click)=\"visitProfile()\"> {{ article?.seller }} </ion-button> \r\n\t\t\t\t</ion-card-content>\r\n\t\t\t  </ion-card>\r\n\t\t\t  <ion-button color=\"secondary\" *ngIf=\"!existInWishlist\" (click)=\"addToWishlist()\" class=\"shoping\" style=\"cursor:pointer;\">\r\n\t\t\t\tAdd to Wish List \r\n\t\t   </ion-button>\r\n\t\t   <ion-button color=\"secondary\" *ngIf=\"existInWishlist\" (click)=\"addToWishlist()\" >\r\n\t\t\t   Product Added in Wish List\r\n\t\t   </ion-button>\r\n</ion-content>\r\n<app-footer></app-footer>"
 
 /***/ }),
 
@@ -1819,7 +1850,7 @@ module.exports = "<ion-content>\n\t<app-header></app-header>\n\t<section>\n\t\t<
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Byb2R1Y3QvcHJvZHVjdC1kZXRhaWwvcHJvZHVjdC1kZXRhaWwuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "h3 {\n  text-align: center; }\n\nion-button {\n  width: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcHJvZHVjdC9wcm9kdWN0LWRldGFpbC9EOlxcZGV2XFxmYnMtaHlicmlkL3NyY1xcYXBwXFxwcm9kdWN0XFxwcm9kdWN0LWRldGFpbFxccHJvZHVjdC1kZXRhaWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxtQkFBa0IsRUFDbkI7O0FBRUg7RUFDSSxZQUFVLEVBQ1giLCJmaWxlIjoic3JjL2FwcC9wcm9kdWN0L3Byb2R1Y3QtZGV0YWlsL3Byb2R1Y3QtZGV0YWlsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDN7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgfVxyXG5cclxuaW9uLWJ1dHRvbntcclxuICAgIHdpZHRoOjEwMCU7XHJcbiAgfSJdfQ== */"
 
 /***/ }),
 
@@ -1882,9 +1913,9 @@ var ProductDetailComponent = /** @class */ (function () {
                 }
             }
             else {
-                _this.message = 'Product not found';
+                _this.signingService.presentToast('Product not found');
             }
-        }, function (err) { return _this.message = err['error']['message']; });
+        }, function (err) { return _this.signingService.presentToast(err['error']['message']); });
     };
     ProductDetailComponent.prototype.addToWishlist = function () {
         var _this = this;
@@ -1935,7 +1966,7 @@ var ProductDetailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n\t\t<app-header></app-header>\n\t\t<section>\n\t\t\t<div class=\"second-page-container\">\n\t\t\t\t<div class=\"container\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\n\t\t\t\t\t\t<div class=\"col-md-9\">\n\t\t\n\t\t\t\t\t\t\t<div class=\"header-for-light\">\n\t\t\t\t\t\t\t\t<h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Products</h1>\n\t\t\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"block-products-modes color-scheme-2\">\n\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t<div class=\"col-xs-12 col-sm-6 col-md-6 col-lg-6\">\n\t\t\t\t\t\t\t\t\t\t<form>\n\t\t\t\t\t\t\t\t\t\t\t<input type=\"text\" [(ngModel)]=\"keyword\" (keyup.enter)=\"list()\" name=\"keyword\" placeholder=\"Search ...\" class=\"form-control\">\n\t\t\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"col-xs-12 col-sm-6 col-md-6 col-lg-6\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-3\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"pull-right\">Sort by</label>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-9\">\n\t\t\t\t\t\t\t\t\t\t\t\t<select name=\"sort-type\" [(ngModel)]=\"filter\" (change)=\"list()\" class=\"form-control\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<option value=\"recent\">Most recent</option>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<option value=\"price_lowest\" selected=\"selected\">Price: Lowest first</option>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<option value=\"price_highest\">Price: Highest first</option>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<option value=\"name_asc\">Product Name: A to Z</option>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<option value=\"name_desc\">Product Name: Z to A</option>\n\t\t\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<h1 *ngIf=\"!articles?.length\" class=\"message\">No products found</h1>\n\t\t\t\t\t\t\t<article *ngFor=\"let article of articles\" class=\"product list\">\n\t\t\t\t\t\t\t\t<div class=\"row\" (click)=\"productDetails(article._id)\">\n\t\t\t\t\t\t\t\t\t<div class=\"col-xs-12 col-sm-4 col-md-4 text-center\" style=\"cursor:pointer!important\">\n\t\t\t\t\t\t\t\t\t\t<figure class=\"figure-hover-overlay text-center\">\n\t\t\t\t\t\t\t\t\t\t\t<a (click)=\"productDetails(article._id)\" class=\"figure-href\"></a>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"product-new\">{{article.type}}</div>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"product-sale\" *ngIf=\"article.discount\">{{article.discount}} <br> off</div>\n\t\t\t\t\t\t\t\t\t\t\t<img [src]=\"article.image_path\" class=\"img-overlay img-responsive\" alt=\"\">\n\t\t\t\t\t\t\t\t\t\t\t<img [src]=\"article.image_path\" class=\"img-responsive\" alt=\"\">\n\t\t\t\t\t\t\t\t\t\t</figure>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\n\t\t\t\t\t\t\t\t\t<div class=\"col-xs-12 col-sm-8 col-md-8\" style=\"cursor:pointer!important\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"product-caption\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"block-name\">\n\t\t\t\t\t\t\t\t\t\t\t\t<a (click)=\"productDetails(article._id)\" class=\"product-name\">{{article.name}}</a>\n\t\t\t\t\t\t\t\t\t\t\t\t<p class=\"product-price\"><span>{{article.price.original}}</span> {{article.price.discounted}}</p>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t<p class=\"description\">{{article.description}}</p>\n\t\t\t\t\t\t\t\t\t\t\t<p class=\"price\">{{article.price}} €</p>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</article>\n\t\t\n\t\t\t\t\t\t</div>\n\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\n\t\t</section>\n\t\t<app-footer [ngClass]=\"{'fixed': articles?.length >= 2 ? false : true }\"></app-footer>\n</ion-content>"
+module.exports = "<app-header></app-header>\n<ion-content>\n\n\t<div class=\"header-for-light\">\n\t\t<h3 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">All Products</h3>\n\n\t</div>\n\n\t<ion-searchbar [(ngModel)]=\"keyword\" [showCancelButton]=\"shouldShowCancel\" (keyup.enter)=\"list()\" (ionCancel)=\"onCancel($event)\">\n\t</ion-searchbar>\n\n\t<ion-button (click)=\"presentActionSheet()\">\n\t\tSort <ion-icon name=\"funnel\"></ion-icon>\n\t</ion-button>\n\n\n\t<h3 *ngIf=\"!articles?.length\" class=\"message\">No products found</h3>\n\t<div class=\"cards-bg social-cards\">\n\n\t\t<h3 *ngIf=\"!articles?.length\">No products</h3>\n\t\t<ion-card *ngFor=\"let article of articles\" class=\"col-md-3 text-center\" (click)=\"productDetails(article._id)\">\n\n\t\t\t<ion-item>\n\t\t\t\t<h4>{{ article.name}}</h4>\n\t\t\t</ion-item>\n\n\t\t\t<img [src]=\"article.image_path\" class=\"img-responsive\" alt=\"\">\n\n\t\t\t<ion-card-content>\n\t\t\t\t<p>{{ article.description }}</p>\n\t\t\t</ion-card-content>\n\n\t\t\t<ion-row>\n\t\t\t\t<ion-col>\n\t\t\t\t\t<div>Price: $ {{ article.price }}</div>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col>\n\t\t\t\t\t<div>Category: {{ article?.category }}</div>\n\t\t\t\t</ion-col>\n\n\n\t\t\t</ion-row>\n\n\t\t</ion-card>\n\n\t</div>\n\n</ion-content>\n<app-footer [ngClass]=\"{'fixed': articles?.length >= 2 ? false : true }\"></app-footer>"
 
 /***/ }),
 
@@ -1946,7 +1977,7 @@ module.exports = "<ion-content>\n\t\t<app-header></app-header>\n\t\t<section>\n\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Byb2R1Y3QvcHJvZHVjdC1saXN0L3Byb2R1Y3QtbGlzdC5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "h3 {\n  text-align: center;\n  font-weight: bold; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcHJvZHVjdC9wcm9kdWN0LWxpc3QvRDpcXGRldlxcZmJzLWh5YnJpZC9zcmNcXGFwcFxccHJvZHVjdFxccHJvZHVjdC1saXN0XFxwcm9kdWN0LWxpc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxtQkFBa0I7RUFDbEIsa0JBQWlCLEVBQ3BCIiwiZmlsZSI6InNyYy9hcHAvcHJvZHVjdC9wcm9kdWN0LWxpc3QvcHJvZHVjdC1saXN0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDN7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -1964,6 +1995,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_signing_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/signing.service */ "./src/app/services/signing.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1973,16 +2005,53 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
 
 
 
 
 var ProductListComponent = /** @class */ (function () {
-    function ProductListComponent(title, signingService, route, router) {
+    function ProductListComponent(title, signingService, route, router, actionSheetController) {
         this.title = title;
         this.signingService = signingService;
         this.route = route;
         this.router = router;
+        this.actionSheetController = actionSheetController;
         this.filter = 'recent';
     }
     ProductListComponent.prototype.ngOnInit = function () {
@@ -1990,11 +2059,79 @@ var ProductListComponent = /** @class */ (function () {
         this.keyword = this.route.snapshot.params.name;
         this.list();
     };
+    ProductListComponent.prototype.presentActionSheet = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var actionSheet;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.actionSheetController.create({
+                            header: 'Sort',
+                            buttons: [{
+                                    text: 'Most Recent',
+                                    icon: 'arrow-up',
+                                    handler: function () {
+                                        console.log('Most Recent');
+                                        _this.filter = "recent";
+                                        _this.list();
+                                    }
+                                }, {
+                                    text: 'Price: Lowest First',
+                                    icon: 'logo-euro',
+                                    handler: function () {
+                                        console.log('Price: Lowest First');
+                                        _this.filter = "price_lowest";
+                                        _this.list();
+                                    }
+                                }, {
+                                    text: 'Price: Highest First',
+                                    icon: 'logo-euro',
+                                    handler: function () {
+                                        console.log('Price: Highest First');
+                                        _this.filter = "price_highest";
+                                        _this.list();
+                                    }
+                                }, {
+                                    text: 'Product Name : A to Z',
+                                    icon: 'arrow-dropdown-circle',
+                                    handler: function () {
+                                        console.log('Product Name : A to Z');
+                                        _this.filter = "name_asc";
+                                        _this.list();
+                                    }
+                                }, {
+                                    text: 'Product Name : Z to A',
+                                    icon: 'arrow-dropup-circle',
+                                    handler: function () {
+                                        console.log('Product Name : Z to A');
+                                        _this.filter = "name_desc";
+                                        _this.list();
+                                    }
+                                }, {
+                                    text: 'Close',
+                                    icon: 'close',
+                                    role: 'cancel',
+                                    handler: function () {
+                                        console.log('Close');
+                                    }
+                                }]
+                        })];
+                    case 1:
+                        actionSheet = _a.sent();
+                        return [4 /*yield*/, actionSheet.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     ProductListComponent.prototype.list = function () {
         var _this = this;
         console.log(this.keyword);
         this.signingService.searchProducts({ name: this.keyword, filter: this.filter })
             .subscribe(function (results) {
+            console.log('results =>', results);
             if (results['status'] && results['body'] && Array.isArray(results['body']['product'])) {
                 _this.articles = results['body']['product'];
                 // this.articles.forEach(article => {
@@ -2015,7 +2152,8 @@ var ProductListComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["Title"],
             _services_signing_service__WEBPACK_IMPORTED_MODULE_3__["SigningService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"]])
     ], ProductListComponent);
     return ProductListComponent;
 }());
@@ -2031,7 +2169,7 @@ var ProductListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\r\n    <app-header></app-header>\r\n    <section>\r\n      <div class=\"second-page-container\">\r\n        <div class=\"block\">\r\n          <div class=\"container\">\r\n            <div class=\"header-for-light\">\r\n              <h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">{{isVisitor ? user['profile']['name'] : 'My' }} <span>Profile</span></h1>\r\n            </div>\r\n            <h3 class=\"message\" *ngIf=\"message\">{{message}}</h3>\r\n            <div class=\"col-lg-8 col-md-7\">\r\n              <div class=\"card\">\r\n                <div class=\"text-center\">\r\n                    <div class=\"author\">\r\n                      <!-- <img class=\"avatar border-white\" [src]=\"user['profile']['image_path']\" alt=\"...\"/> -->\r\n                    </div>\r\n                </div>\r\n                <hr>\r\n                <div class=\"content\">\r\n                  <form [formGroup]=\"form\">\r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-4\">\r\n                        <div class=\"form-group\">\r\n                          <label for=\"exampleInputEmail1\">Email address</label>\r\n                          <input type=\"email\" class=\"form-control border-input\" formControlName=\"email\" placeholder=\"Email\">\r\n                        </div>\r\n                      </div>\r\n                      <div class=\"col-md-4\">\r\n                          <div class=\"form-group\">\r\n                            <label>Role</label>\r\n                            <input type=\"text\" class=\"form-control border-input\" placeholder=\"Role\" formControlName=\"role\">\r\n                          </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-6\">\r\n                        <div class=\"form-group\">\r\n                          <label>Username</label>\r\n                          <input type=\"text\" class=\"form-control border-input\" formControlName=\"username\">\r\n                        </div>\r\n                      </div>\r\n                      <div class=\"col-md-6\">\r\n                        <div class=\"form-group\">\r\n                          <label>Full Name</label>\r\n                          <input type=\"text\" class=\"form-control border-input\" formControlName=\"name\">\r\n                          <div *ngIf=\"name.touched && name.invalid\">\r\n                            <div *ngIf=\"name.errors?.required\">Name is required</div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n    \r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-12\">\r\n                        <div class=\"form-group\">\r\n                          <label>Address</label>\r\n                          <input type=\"text\" class=\"form-control border-input\" formControlName=\"address\">\r\n                          <div *ngIf=\"address.touched && address.invalid\">\r\n                            <div *ngIf=\"address.errors?.required\">Address is required</div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n    \r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-4\">\r\n                        <div class=\"form-group\">\r\n                          <label>Mobile Number</label>\r\n                          <input type=\"text\" class=\"form-control border-input\" placeholder=\"Mobile Number\" formControlName=\"mobile_number\">\r\n                          <div *ngIf=\"mobile_number.touched && mobile_number.invalid\">\r\n                            <div *ngIf=\"mobile_number.errors?.required\">Mobile number is required</div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"row\" *ngIf=\"!isVisitor\">\r\n                        <div class=\"col-md-6\">\r\n                            <button \r\n                            (click)=\"updateProfile()\" \r\n                            [disabled]=\"form.invalid || !form.dirty\"\r\n                            style=\"background:red!important\"\r\n                            class=\"btn-default-1\">Update Profile</button>\r\n                        </div>\r\n                      </div>\r\n                    <div class=\"clearfix\"></div>\r\n                  </form>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </section>\r\n    \r\n    <app-footer></app-footer>\r\n</ion-content>"
+module.exports = "<app-header></app-header>\r\n<ion-content>\r\n\r\n    <ion-card>\r\n  \r\n      <img src=\"assets/img/avatar.jpg\"/>\r\n  \r\n      <ion-card-content>\r\n        <ion-card-title>\r\n            {{user['profile']['name']}}\r\n        </ion-card-title>\r\n        \r\n      </ion-card-content>\r\n  \r\n      <ion-item>\r\n        <ion-icon name='home' item-start style=\"color: #80E9F9\"></ion-icon>\r\n        {{user['profile']['address']}}\r\n      </ion-item>\r\n  \r\n      <ion-item>\r\n          <ion-icon name=\"call\" item-start style=\"color:#80E9F9\"></ion-icon>\r\n        {{user['profile']['mobile_number']}}\r\n      </ion-item>\r\n  \r\n    </ion-card>\r\n  </ion-content>\r\n\r\n\r\n\r\n<app-footer></app-footer>"
 
 /***/ }),
 
@@ -2042,7 +2180,7 @@ module.exports = "<ion-content>\r\n    <app-header></app-header>\r\n    <section
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Byb2ZpbGUvcHJvZmlsZS5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "ion-card-title {\n  font-weight: bold; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcHJvZmlsZS9EOlxcZGV2XFxmYnMtaHlicmlkL3NyY1xcYXBwXFxwcm9maWxlXFxwcm9maWxlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQWlCLEVBRXBCIiwiZmlsZSI6InNyYy9hcHAvcHJvZmlsZS9wcm9maWxlLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWNhcmQtdGl0bGV7XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxuXHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -2159,7 +2297,7 @@ var ProfileComponent = /** @class */ (function () {
         params.profile_id = this.user['profile']['_id'];
         params.user_id = this.user['_id'];
         this.signingService.updateUser(params)
-            .subscribe(function (result) { return _this.message = result['message']; }, function (err) { return _this.message = err['error']['message']; });
+            .subscribe(function (result) { return _this.signingService.presentToast(result['message']); }, function (err) { return _this.signingService.presentToast(err['error']['message']); });
     };
     ProfileComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -2266,6 +2404,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2275,13 +2414,67 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
 
 
 
 var SigningService = /** @class */ (function () {
-    function SigningService(http) {
+    function SigningService(http, toastController) {
         this.http = http;
+        this.toastController = toastController;
     }
+    SigningService.prototype.presentToast = function (message) {
+        return __awaiter(this, void 0, void 0, function () {
+            var toast;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toastController.create({
+                            message: message,
+                            duration: 3000
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        toast.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     SigningService.prototype.searchProducts = function (params) {
         var url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl + '/api/products';
         if (!params.name) {
@@ -2376,7 +2569,8 @@ var SigningService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"]])
     ], SigningService);
     return SigningService;
 }());
@@ -2392,7 +2586,7 @@ var SigningService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n    <app-header></app-header>\n    <section>\n      <div class=\"second-page-container\">\n        <div class=\"block\">\n          <div class=\"container\">\n            <div class=\"row\">\n              <div class=\"col-md-6\">\n                <h3 class=\"message\" *ngIf=\"message\">{{message}}</h3>\n              </div>\n            </div>\n            <div class=\"row\">\n              <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n                <div class=\"block-form box-border wow fadeInLeft animated\" data-wow-duration=\"1s\">\n                  <h3 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Forgot <span>Password</span></h3>\n                  <form [formGroup]=\"form\">\n                    <div class=\"form-group\">\n                      <div class=\"row\">\n                        <div class=\"col-md-6\">\n                          <input type=\"text\" formControlName=\"username\" class=\"form-control\" placeholder=\"username\">\n                        </div>\n                        <div *ngIf=\"username.touched && username.invalid\">\n                          <div *ngIf=\"username.errors?.required\">Username is required</div>\n                        </div>\n                        <div class=\"col-md-1\">\n                          <span class=\"text-error\">*</span>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"form-group\">\n                      <div class=\"row\">\n                        <div class=\"col-md-6\">\n                          <input type=\"password\" id=\"password\" formControlName=\"password\" class=\"form-control\" placeholder=\"New password\">\n                        </div>\n                        <div *ngIf=\"password.touched && password.invalid\">\n                          <div *ngIf=\"password.errors?.required\">Password is required</div>\n                        </div>\n                        <div class=\"col-md-1\">\n                          <span class=\"text-error\">*</span>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"form-group\">\n                      <div class=\"row\">\n                        <div class=\"col-md-12\">\n                          <hr>\n                          <input type=\"button\" id=\"JQVbtn\" value=\"Reset password\" [disabled]=\"form.invalid\" (click)=\"changePassword()\"\n                            class=\"btn-default-1\">\n                        </div>\n                      </div>\n                    </div>\n                  </form>\n                </div>\n              </article>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n    <app-footer></app-footer>\n</ion-content>"
+module.exports = "<ion-content>\r\n    <app-header></app-header>\r\n    <ion-card>\r\n      <ion-card-header>\r\n        <ion-card-title>Reset Password</ion-card-title>\r\n        <ion-card-subtitle>Please provide your account details</ion-card-subtitle>\r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <form [formGroup]=\"form\">\r\n          <ion-item>\r\n            <ion-label position=\"floating\">Username</ion-label>\r\n            <ion-input formControlName=\"username\"></ion-input>\r\n            <div *ngIf=\"username.touched && username.invalid\">\r\n              <div *ngIf=\"username.errors?.required\">Username is required</div>\r\n            </div>\r\n          </ion-item>\r\n          <ion-item>\r\n            <ion-label position=\"floating\">New Password</ion-label>\r\n            <ion-input formControlName=\"password\"></ion-input>\r\n            <div *ngIf=\"password.touched && password.invalid\">\r\n              <div *ngIf=\"password.errors?.required\">Password is required</div>\r\n            </div>\r\n          </ion-item>\r\n          <ion-button color=\"secondary\" type=\"submit\" [disabled]=\"form.invalid\" (click)=\"changePassword()\">Reset Password</ion-button>\r\n        </form>\r\n      </ion-card-content>\r\n    </ion-card>\r\n  \r\n    <app-footer></app-footer>\r\n  </ion-content>"
 
 /***/ }),
 
@@ -2463,9 +2657,9 @@ var ForgotPasswordComponent = /** @class */ (function () {
         this.signingService.changePassword(this.form.value)
             .subscribe(function (result) {
             _this.form.reset();
-            _this.message = result['message'];
+            _this.signingService.presentToast(result['message']);
         }, function (err) {
-            _this.message = err.error.message;
+            _this.signingService.presentToast(err.error.message);
         });
     };
     ForgotPasswordComponent = __decorate([
@@ -2493,7 +2687,7 @@ var ForgotPasswordComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n\t\t<app-header></app-header>\n\t\t<section>\n\t\t\t<div class=\"second-page-container\">\n\t\t\t\t<div class=\"block\">\n\t\t\t\t\t<div class=\"container\">\n\t\t\t\t\t\t<div class=\"header-for-light\">\n\t\t\t\t\t\t\t<h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Login in your <span>Account</span></h1>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<h3 class=\"message\" *ngIf=\"message\">{{message}}</h3>\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-6\">\n\t\t\t\t\t\t\t\t<div class=\"block-form box-border wow fadeInLeft animated\" data-wow-duration=\"1s\">\n\t\t\t\t\t\t\t\t\t<h3><i class=\"fa fa-unlock\"></i>Login</h3>\n\t\t\t\t\t\t\t\t\t<p>Please login using your existing account</p>\n\t\t\t\t\t\t\t\t\t<form [formGroup]=\"form\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"username\" formControlName=\"username\" placeholder=\"username\">\n\t\t\t\t\t\t\t\t\t\t\t\t<div *ngIf=\"username.touched && username.invalid\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<div *ngIf=\"username.errors?.required\">Username is required</div>\n\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"password\" class=\"form-control\" id=\"password\" formControlName=\"password\" placeholder=\"password\">\n\t\t\t\t\t\t\t\t\t\t\t\t<div *ngIf=\"password.touched && password.invalid\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<div *ngIf=\"password.errors?.required\">Password is required</div>\n\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-12\">\n\t\t\t\t\t\t\t\t\t\t\t\t<hr>\n\t\t\t\t\t\t\t\t\t\t\t\t<button type=\"submit\" [disabled]=\"form.invalid\" (click)=\"login()\" class=\"btn-default-1\">Login</button>\n\t\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" [routerLink]=\"['/forgot-password']\" class=\"btn-default-1\">Reset Password</button>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</article>\n\t\t\t\t\t\t\t<article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-6\">\n\t\t\t\t\t\t\t\t<div class=\"block-form box-border wow fadeInRight animated\" data-wow-duration=\"1s\">\n\t\t\t\t\t\t\t\t\t<h3><i class=\"fa fa-pencil\"></i>Create new account</h3>\n\t\t\t\t\t\t\t\t\t<p>Registration allows you to avoid filling in billing and shipping forms every time you\n\t\t\t\t\t\t\t\t\t\tcheckout on this website.</p>\n\t\t\t\t\t\t\t\t\t<hr>\n\t\t\t\t\t\t\t\t\t<a [routerLink]=\"['/register']\" class=\"btn-default-1\">Register</a>\n\t\t\t\t\t\t\t\t</div>\n\t\t\n\t\t\t\t\t\t\t</article>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</section>\n\t\t\n\t\t<app-footer></app-footer>\n</ion-content>"
+module.exports = "<ion-content>\r\n\t<app-header></app-header>\r\n\t<ion-card>\r\n\t\t<ion-card-header>\r\n\t\t\t<ion-card-title>Login</ion-card-title>\r\n\t\t\t<ion-card-subtitle>Please login using your existing account</ion-card-subtitle>\r\n\t\t</ion-card-header>\r\n\t\t<ion-card-content>\r\n\t\t\t<form [formGroup]=\"form\">\r\n\t\t\t\t<ion-item>\r\n\t\t\t\t\t<ion-label position=\"floating\">Username</ion-label>\r\n\t\t\t\t\t<ion-input formControlName=\"username\"></ion-input>\r\n\t\t\t\t\t<div *ngIf=\"username.touched && username.invalid\">\r\n\t\t\t\t\t\t<div *ngIf=\"username.errors?.required\">Username is required</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</ion-item>\r\n\t\t\t\t<ion-item>\r\n\t\t\t\t\t<ion-label position=\"floating\">Password</ion-label>\r\n\t\t\t\t\t<ion-input formControlName=\"password\"></ion-input>\r\n\t\t\t\t\t<div *ngIf=\"password.touched && password.invalid\">\r\n\t\t\t\t\t\t<div *ngIf=\"password.errors?.required\">Password is required</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</ion-item>\r\n\t\t\t\t<ion-button color=\"secondary\" type=\"submit\" [disabled]=\"form.invalid\" (click)=\"login()\">Login</ion-button>\r\n\t\t\t\t<ion-button color=\"secondary\" [routerLink]=\"['/forgot-password']\">Reset Pass</ion-button>\r\n\t\t\t</form>\r\n\t\t</ion-card-content>\r\n\t</ion-card>\r\n\r\n\t<ion-card>\r\n\t\t<ion-card-header>\r\n\t\t\t<ion-card-title>Create new account</ion-card-title>\r\n\t\t</ion-card-header>\r\n\r\n\t\t<ion-card-content>\r\n\t\t\t<ion-item>\r\n\t\t\t\tRegistration allows you to avoid filling in billing and shipping forms every time you\r\n\t\t\t\tcheckout on this website.\r\n\t\t\t</ion-item>\r\n\t\t\t<ion-button expand=\"block\" color=\"secondary\" [routerLink]=\"['/register']\">Register</ion-button>\r\n\t\t</ion-card-content>\r\n\t</ion-card>\r\n\r\n\t<app-footer></app-footer>\r\n</ion-content>"
 
 /***/ }),
 
@@ -2563,17 +2757,16 @@ var LoginComponent = /** @class */ (function () {
             .subscribe(function (result) {
             console.log(result);
             _this.form.reset();
-            _this.message = result['message'];
+            _this.signingService.presentToast(result['message']);
             if (result['status']) {
                 localStorage.setItem('user', JSON.stringify(result['user']));
                 setTimeout(function () {
-                    _this.message = null;
                     // this.router.navigate(['']);
                     window.location.href = '/';
                 }, 2000);
             }
         }, function (err) {
-            _this.message = err.error.message;
+            _this.signingService.presentToast(err.error.message);
         });
     };
     LoginComponent.prototype.ngOnInit = function () {
@@ -2603,7 +2796,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n    <app-header></app-header>\n\n\n    <section>\n      <div class=\"second-page-container\">\n        <div class=\"block\">\n          <div class=\"container\">\n            <div class=\"header-for-light\">\n              <h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">Create new <span>Account</span></h1>\n            </div>\n            <h3 class=\"message\" *ngIf=\"message\">{{message}}</h3>\n            <div class=\"row\">\n              <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-6\">\n                <div class=\"block-form box-border wow fadeInLeft animated\" data-wow-duration=\"1s\">\n                  <h3><i class=\"fa fa-user\"></i>Personal Information</h3>\n                  <hr>\n                  <form class=\"form-horizontal\" [formGroup]=\"form\">\n                    <div class=\"form-group\">\n                      <label for=\"role\" class=\"col-sm-3 control-label\">Type:</label>\n                      <div class=\"col-sm-9\">\n                        <select name=\"role\" id=\"role\" placeholder=\"Select Role\" formControlName=\"role\" class=\"form-control\">\n                          <option value=\"seller\">Seller</option>\n                          <option value=\"buyer\">Buyer</option>\n                        </select>\n                        <div *ngIf=\"role.touched && role.invalid\">\n                          <div *ngIf=\"role.errors?.required\">User type is required</div>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"form-group\">\n                      <label for=\"name\" class=\"col-sm-3 control-label\">Full Name:<span class=\"text-error\">*</span></label>\n                      <div class=\"col-sm-9\">\n                        <input type=\"text\" class=\"form-control\" id=\"name\" formControlName=\"name\">\n                        <div *ngIf=\"name.touched && name.invalid\">\n                          <div *ngIf=\"name.errors?.required\">Full name is required</div>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"form-group\">\n                      <label for=\"username\" class=\"col-sm-3 control-label\">Username:<span class=\"text-error\">*</span></label>\n                      <div class=\"col-sm-9\">\n                        <input type=\"text\" class=\"form-control\" id=\"username\" formControlName=\"username\">\n                        <div *ngIf=\"username.touched && username.invalid\">\n                          <div *ngIf=\"username.errors?.required\">Username is required</div>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"form-group\">\n                      <label for=\"email\" class=\"col-sm-3 control-label\">E-Mail:<span class=\"text-error\"></span></label>\n                      <div class=\"col-sm-9\">\n                        <input type=\"email\" class=\"form-control\" id=\"email\" formControlName=\"email\">\n                        <div *ngIf=\"email.touched && email.invalid\">\n                          <div *ngIf=\"email.errors?.email\">Email is incorrect</div>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"form-group\">\n                      <label for=\"mobile_number\" class=\"col-sm-3 control-label\">Phone:</label>\n                      <div class=\"col-sm-9\">\n                        <input type=\"text\" class=\"form-control\" id=\"mobile_number\" formControlName=\"mobile_number\">\n                      </div>\n                    </div>\n                    <h3><i class=\"fa fa-truck\"></i>Delivery Information</h3>\n                    <hr>\n                    <div class=\"form-group\">\n                      <label for=\"address\" class=\"col-sm-3 control-label\">Address: <span class=\"text-error\">*</span></label>\n                      <div class=\"col-sm-9\">\n                        <input type=\"text\" class=\"form-control\" id=\"address\" formControlName=\"address\">\n                        <div *ngIf=\"address.touched && address.invalid\">\n                          <div *ngIf=\"address.errors?.required\">Address is required</div>\n                        </div>\n                      </div>\n                    </div>\n                    <h3><i class=\"fa fa-lock\"></i>Password</h3>\n                    <hr>\n                    <div class=\"form-group\">\n                      <label for=\"password\" class=\"col-sm-3 control-label\">Password: <span class=\"text-error\">*</span></label>\n                      <div class=\"col-sm-9\">\n                        <input type=\"password\" class=\"form-control\" id=\"password\" formControlName=\"password\">\n                        <div *ngIf=\"password.touched && password.invalid\">\n                          <div *ngIf=\"password.errors?.required\">Password is required</div>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"form-group\">\n                      <div class=\"col-sm-offset-3 col-sm-9\">\n                        <button [ngStyle]=\"{'cursor': form.invalid ? 'not-allowed' : 'pointer'}\"  type=\"submit\" [disabled]=\"form.invalid\" (click)=\"register()\" class=\"btn-default-1\">Register</button>\n                      </div>\n                    </div>\n                  </form>\n    \n                </div>\n              </article>\n              <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-6\">\n                <div class=\"block-form box-border wow fadeInRight animated\" data-wow-duration=\"1s\">\n                  <h3><i class=\"fa fa-pencil\"></i>Login</h3>\n                  <p>Login allows you to buy products</p>\n                  <hr>\n                  <a [routerLink]=\"['/login']\" class=\"btn-default-1\">Login</a>\n                </div>\n              </article>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n    \n    <app-footer></app-footer>\n</ion-content>"
+module.exports = "<ion-content>\r\n  <app-header></app-header>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-title>Register</ion-card-title>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <form [formGroup]=\"form\">\r\n        <ion-card-subtitle>Personal Information</ion-card-subtitle>\r\n        <ion-item>\r\n          <ion-label>Type</ion-label>\r\n          <ion-select formControlName=\"role\" placeholder=\"Select One\">\r\n            <ion-select-option value=\"seller\">Seller</ion-select-option>\r\n            <ion-select-option value=\"buyer\">Buyer</ion-select-option>\r\n          </ion-select>\r\n          <div *ngIf=\"role.touched && role.invalid\">\r\n            <div *ngIf=\"role.errors?.required\">User type is required</div>\r\n          </div>\r\n        </ion-item>\r\n\r\n        <ion-item>\r\n          <ion-label position=\"floating\">Full Name</ion-label>\r\n          <ion-input formControlName=\"name\"></ion-input>\r\n          <div *ngIf=\"name.touched && name.invalid\">\r\n            <div *ngIf=\"name.errors?.required\">Full name is required</div>\r\n          </div>\r\n        </ion-item>\r\n\r\n        <ion-item>\r\n          <ion-label position=\"floating\">Username</ion-label>\r\n          <ion-input formControlName=\"username\"></ion-input>\r\n          <div *ngIf=\"username.touched && username.invalid\">\r\n            <div *ngIf=\"username.errors?.required\">Username is required</div>\r\n          </div>\r\n        </ion-item>\r\n\r\n        <ion-item>\r\n          <ion-label position=\"floating\">E-Mail</ion-label>\r\n          <ion-input formControlName=\"email\"></ion-input>\r\n          <div *ngIf=\"email.touched && email.invalid\">\r\n            <div *ngIf=\"email.errors?.email\">Email is incorrect</div>\r\n          </div>\r\n        </ion-item>\r\n\r\n        <ion-item>\r\n          <ion-label position=\"floating\">Phone</ion-label>\r\n          <ion-input formControlName=\"mobile_number\"></ion-input>\r\n        </ion-item>\r\n\r\n\r\n        <ion-card-subtitle>Delivery Information</ion-card-subtitle>\r\n\r\n        <ion-item>\r\n          <ion-label position=\"floating\">Address</ion-label>\r\n          <ion-input formControlName=\"address\"></ion-input>\r\n          <div *ngIf=\"address.touched && address.invalid\">\r\n            <div *ngIf=\"address.errors?.required\">Address is required</div>\r\n          </div>\r\n        </ion-item>\r\n\r\n        <ion-item>\r\n          <ion-label position=\"floating\">Password</ion-label>\r\n          <ion-input formControlName=\"password\"></ion-input>\r\n          <div *ngIf=\"password.touched && password.invalid\">\r\n            <div *ngIf=\"password.errors?.required\">Password is required</div>\r\n          </div>\r\n        </ion-item>\r\n        <ion-button expand=\"block\" color=\"danger\" type=\"submit\" [ngStyle]=\"{'cursor': form.invalid ? 'not-allowed' : 'pointer'}\"\r\n          type=\"submit\" [disabled]=\"form.invalid\" (click)=\"register()\">Register</ion-button>\r\n      </form>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <ion-card>\r\n    <ion-card-header>\r\n      <ion-card-title>Login</ion-card-title>\r\n    </ion-card-header>\r\n\r\n    <ion-card-content>\r\n      <ion-item>Login allows you to buy products</ion-item>\r\n      <ion-button expand=\"block\" color=\"secondary\" [routerLink]=\"['/login']\">Login</ion-button>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <app-footer></app-footer>\r\n</ion-content>"
 
 /***/ }),
 
@@ -2699,12 +2892,10 @@ var RegisterComponent = /** @class */ (function () {
             if (result['status']) {
                 _this.form.reset();
             }
-            _this.message = result['message'];
+            _this.signingService.presentToast(result['message']);
         }, function (err) {
-            _this.message = err['error']['message'];
+            _this.signingService.presentToast(err['error']['message']);
         });
-    };
-    RegisterComponent.prototype.ngOnInit = function () {
     };
     RegisterComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -2731,7 +2922,7 @@ var RegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n    <app-header></app-header>\n    <section>\n      <div class=\"second-page-container\">\n        <div class=\"block\">\n          <div class=\"container\">\n            <h3 class=\"message\" *ngIf=\"message\">{{message}}</h3>\n            <div class=\"header-for-light\">\n              <h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">My <span>Wishlist</span></h1>\n            </div>\n            <h3 *ngIf=\"articles && articles['length'] < 1\">No Products in Wishlist</h3>\n            <div class=\"row\" *ngIf=\"articles && articles['length']\">\n              <div class=\"col-md-12\">\n                <table class=\"cart-table table wow fadeInLeft\" data-wow-duration=\"1s\">\n                  <thead>\n                    <tr>\n                      <th class=\"card_product_image\">Image</th>\n                      <th class=\"card_product_name\">Product Name</th>\n                      <th class=\"card_product_model\">Note</th>\n                      <th class=\"card_product_quantity\">Condition</th>\n                      <th class=\"card_product_price\">Price</th>\n                      <th class=\"card_product_remove\">Remove</th>\n                      <!-- <th class=\"card_product_total\">Add to Cart</th> -->\n                    </tr>\n                  </thead>\n                  <tbody>\n                    <tr *ngFor=\"let article of articles\">\n                      <td class=\"card_product_image\" data-th=\"Image\"><a><img title=\"Product Name\" alt=\"Product Name\" [src]=\"article.product_details.image_path\"></a></td>\n                      <td class=\"card_product_name\" data-th=\"Product Name\"><a>{{article.product_details.name}}</a><br>\n                      </td>\n                      <td class=\"card_product_model\" data-th=\"Model\">\n                        <p>{{article.product_details.description}}</p>\n                      </td>\n                      <td class=\"card_product_quantity\" data-th=\"Quantity\">\n                        {{article.product_details.condition}}\n                      </td>\n                      <td class=\"card_product_price\" data-th=\"Unit Price\">{{article.product_details.price}}</td>\n                      <!-- <td class=\"card_product_total\" data-th=\"Add to Cart\"><input type=\"submit\" value=\"Add to Cart\" class=\"btn-default-1\"></td> -->\n    \n                      <td class=\"card_product_remove\" data-th=\"Remove\"><a style=\"cursor: pointer\" (click)=\"removeProduct(article)\">Remove</a></td>\n                    </tr>\n    \n                  </tbody>\n                </table>\n              </div>\n            </div>\n            <div class=\"col-xs-12 col-sm-6 col-md-4 col-lg-4\" *ngIf=\"articles && articles['length']\">\n              <div class=\"row\">\n                <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n                  <div class=\"block-form block-order-total box-border wow fadeInRight\" data-wow-duration=\"1s\">\n                    <h3><i class=\"fa fa-dollar\"></i> Total</h3>\n                    <hr>\n                    <ul class=\"list-unstyled\">\n                      <li>Sub Total: <strong>€ {{ total }}</strong></li>\n                      <!-- <li>Promotion Discound: <strong>€ 5.00</strong></li> -->\n                      <!-- <li>VAT: <strong>€ 10.00</strong></li> -->\n                      <li>\n                        <hr>\n                      </li>\n                      <li><b>Total:</b> <strong>€ {{ total }}</strong></li>\n                    </ul>\n                    <button style=\"cursor: pointer\" [disabled]=\"articles && articles['length'] == 0\" (click)=\"checkout()\"\n                      class=\"btn-default-1\">Checkout</button>\n                  </div>\n                </article>\n              </div>\n            </div>\n          </div>\n          <br><br><br><br><br><br>\n          <div class=\"container\">\n            <div class=\"header-for-light\">\n              <h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">My <span>Orders</span></h1>\n            </div>\n            <h3 *ngIf=\"orders && orders['length'] < 1\">No Orders</h3>\n            <div class=\"row\">\n              <div *ngFor=\"let order of orders; let i = index\" class=\"col-xs-12 col-sm-6 col-md-4 col-lg-4\">\n                <div class=\"row\">\n                  <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n                    <div class=\"block-form block-order-total box-border wow fadeInRight\" data-wow-duration=\"1s\">\n                      <h3><i class=\"fa fa-dollar\"></i> Order {{i+1}}</h3>\n                      <hr>\n                      <ul class=\"list-unstyled\">\n                        <li *ngFor=\"let product of order.products\">{{product.name }}<strong>€ {{ product.price }}</strong></li>\n                        <!-- <li>Promotion Discound: <strong>€ 5.00</strong></li> -->\n                        <!-- <li>VAT: <strong>€ 10.00</strong></li> -->\n                        <li>\n                          <hr>\n                        </li>\n                        <li><b>Total:</b> <strong>€ {{ order.total }}</strong></li>\n                      </ul>\n                    </div>\n                  </article>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n    \n    \n    <app-footer [ngClass]=\"{'fixed': articles?.length || orders?.length ? false : true }\"></app-footer>\n</ion-content>"
+module.exports = "<ion-content>\r\n  <app-header></app-header>\r\n  <ion-toolbar>\r\n    <ion-title>\r\n      <div class=\"header-for-light\">\r\n        <h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">My <span>Wishlist</span></h1>\r\n      </div>\r\n    </ion-title>\r\n    <ion-title *ngIf=\"articles && articles['length'] < 1\">\r\n        <h3>No Products in Wishlist</h3>\r\n      </ion-title>\r\n  </ion-toolbar>\r\n\r\n  <div *ngIf=\"articles && articles['length']\">\r\n    <ion-card *ngFor=\"let article of articles\">\r\n      <ion-card-header>\r\n        <ion-card-title>{{article.product_details.name}}</ion-card-title>\r\n      </ion-card-header>\r\n\r\n      <ion-card-content>\r\n        <ion-img [src]=\"article.product_details.image_path\"></ion-img>\r\n        <ion-item>\r\n          <ion-label>Product Name</ion-label>\r\n          <ion-label>{{article.product_details.name}}</ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>Note</ion-label>\r\n            <ion-label>{{article.product_details.description}}</ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>Condition</ion-label>\r\n          <ion-label>{{article.product_details.condition}}</ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>Price</ion-label>\r\n          <ion-label>€ {{article.product_details.price}}</ion-label>\r\n        </ion-item>\r\n        <ion-button expand=\"block\" color=\"secondary\" style=\"cursor: pointer\" (click)=\"removeProduct(article)\">Remove\r\n          from\r\n          wishlist</ion-button>\r\n      </ion-card-content>\r\n    </ion-card>\r\n  </div>\r\n\r\n  <ion-card *ngIf=\"articles && articles['length']\">\r\n    <ion-card-header>\r\n      <ion-card-title>Total</ion-card-title>\r\n      <ion-card-subtitle>Sub Total: € {{ total }}</ion-card-subtitle>\r\n      <ion-card-subtitle>Total: € {{ total }}</ion-card-subtitle>\r\n    </ion-card-header>\r\n\r\n    <ion-card-content>\r\n      <ion-button expand=\"block\" color=\"secondary\" style=\"cursor: pointer\" [disabled]=\"articles && articles['length'] == 0\"\r\n        (click)=\"checkout()\">\r\n        Checkout\r\n      </ion-button>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <br><br>\r\n  <ion-toolbar>\r\n    <ion-title>\r\n      <div class=\"header-for-light\">\r\n        <h1 class=\"wow fadeInRight animated\" data-wow-duration=\"1s\">My <span>Orders</span></h1>\r\n      </div>\r\n    </ion-title>\r\n    <ion-title *ngIf=\"orders && orders['length'] < 1\">\r\n      <h3>No Orders</h3>\r\n    </ion-title>\r\n  </ion-toolbar>\r\n\r\n  <ion-card *ngFor=\"let order of orders; let i = index\">\r\n    <ion-card-header>\r\n      <ion-card-title>Order {{i+1}}</ion-card-title>\r\n    </ion-card-header>\r\n\r\n    <ion-item *ngFor=\"let product of order.products\">\r\n      <ion-label>{{product.name }}</ion-label>\r\n      <ion-label>€ {{product.price }}</ion-label>\r\n    </ion-item>\r\n\r\n    <ion-card-content>\r\n      <ion-card-subtitle>Total: € {{ order.total }}</ion-card-subtitle>\r\n    </ion-card-content>\r\n  </ion-card>\r\n\r\n  <app-footer [ngClass]=\"{'fixed': articles?.length || orders?.length ? false : true }\"></app-footer>\r\n</ion-content>"
 
 /***/ }),
 
@@ -2758,9 +2949,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WishlistComponent", function() { return WishlistComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_signing_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/signing.service */ "./src/app/services/signing.service.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2770,7 +2960,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -2800,11 +2989,8 @@ var WishlistComponent = /** @class */ (function () {
         this.signingService.checkout(order)
             .subscribe(function (result) {
             console.log(result);
-            _this.message = result['message'];
+            _this.signingService.presentToast(result['message']);
             _this.list();
-            setTimeout(function () {
-                _this.message = null;
-            }, 3000);
         }, function (err) { return console.log(err); });
     };
     WishlistComponent.prototype.list = function () {
@@ -2816,13 +3002,13 @@ var WishlistComponent = /** @class */ (function () {
             console.log(_this.orders);
             _this.articles.forEach(function (article) {
                 _this.total += article.product_details.price;
-                article.product_details.image_path = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl + '/' + article.product_details.image_path;
+                // article.product_details.image_path = environment.apiUrl + '/' + article.product_details.image_path;
             });
         }, function (err) { return console.log(err); });
     };
     WishlistComponent.prototype.removeProduct = function (product) {
         var _this = this;
-        product = lodash__WEBPACK_IMPORTED_MODULE_3___default.a.pick(product, ['_id', 'seller_id', 'buyer_id', 'product_id']);
+        product = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.pick(product, ['_id', 'seller_id', 'buyer_id', 'product_id']);
         console.log(product);
         this.signingService.removeProductFromWishlist(product)
             .subscribe(function (result) {
@@ -2908,7 +3094,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\dev\gdsd-ionic\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\dev\fbs-hybrid\src\main.ts */"./src/main.ts");
 
 
 /***/ })

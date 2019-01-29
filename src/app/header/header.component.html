@@ -48,7 +48,7 @@
 		</ion-buttons>
 	</ion-item>
 	<ion-item color="secondary">
-		<ion-searchbar name="searchKeyword" [(ngModel)]="searchKeyword" [showCancelButton]="shouldShowCancel" (keyup.enter)="searchProducts()"
+		<ion-searchbar name="searchKeyword" [(ngModel)]="searchKeyword" placeholder="Search Products" [showCancelButton]="shouldShowCancel" (keyup.enter)="searchProducts()"
 		(ionCancel)="onCancel($event)">
 	   </ion-searchbar>
 	</ion-item>

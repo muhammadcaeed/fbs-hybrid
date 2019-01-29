@@ -1,4 +1,4 @@
-#Sat Jan 05 22:35:48 CET 2019
-base.0=D\:\\dev\\gdsd-ionic\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+#Thu Jan 24 18:21:38 CET 2019
+base.0=D\:\\dev\\fbs-hybrid\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 renamed.0=classes.dex
-file.0=D\:\\dev\\gdsd-ionic\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0\\classes.dex
+file.0=D\:\\dev\\fbs-hybrid\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0\\classes.dex

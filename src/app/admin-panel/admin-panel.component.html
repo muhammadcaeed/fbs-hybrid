@@ -15,6 +15,34 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-list>
+      <ion-list-header>Sort Results</ion-list-header>
+    
+      <ion-item>
+        <ion-label>Filter By</ion-label>
+        <ion-select placeholder="Select One" (ionChange)="sort($event.target.value)"
+        [(ngModel)]="sortBy">
+          <ion-select-option *ngIf="isUserActive" value="email">Email</ion-select-option>
+          <ion-select-option *ngIf="isUserActive" value="role">Role</ion-select-option>
+          <ion-select-option *ngIf="isUserActive" value="username">Username</ion-select-option>
+          <ion-select-option *ngIf="!isUserActive" value="created_at">Created</ion-select-option>
+          <ion-select-option *ngIf="!isUserActive" value="condition">Condition</ion-select-option>
+          <ion-select-option *ngIf="!isUserActive" value="name">Name</ion-select-option>
+          <ion-select-option *ngIf="!isUserActive" value="price">Price</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>View By</ion-label>
+        <ion-select placeholder="Ascending" (ionChange)="sort(sortBy)"
+        [(ngModel)]="viewBy">
+          <ion-select-option value="Ascending">Ascending</ion-select-option>
+          <ion-select-option value="Descending">Descending</ion-select-option>
+        </ion-select>
+      </ion-item>
+    
+    </ion-list>
+  
   <ion-card *ngFor="let record of activeLayer; let x = index">
     <ion-card-header>
       <ion-card-title>{{ isUserActive ? record.username : record.name }}</ion-card-title>
@@ -44,6 +72,12 @@
         <ion-col>{{record.price}}</ion-col>
       </ion-label>
     </ion-item>
+    <ion-item *ngIf="!isUserActive">
+        <ion-label>
+          <ion-col>Created</ion-col>
+          <ion-col>{{record.created_at | date }}</ion-col>
+        </ion-label>
+      </ion-item>
     <ion-item *ngIf="!isUserActive">
       <ion-label>
         <ion-col>{{ isUserActive ? 'Password' : 'Status' }}</ion-col>

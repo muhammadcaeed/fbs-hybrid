@@ -20,7 +20,6 @@ export class ProductListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public actionSheetController: ActionSheetController
- 
     ) { }
 
   ngOnInit() {
@@ -88,6 +87,7 @@ export class ProductListComponent implements OnInit {
     console.log(this.keyword);
     this.signingService.searchProducts({name: this.keyword, filter: this.filter})
     .subscribe(results => {
+      console.log('results =>', results);
       if (results['status'] && results['body'] && Array.isArray(results['body']['product'])) {
         this.articles = results['body']['product'];
         // this.articles.forEach(article => {

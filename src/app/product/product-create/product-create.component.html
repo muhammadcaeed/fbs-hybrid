@@ -1,8 +1,112 @@
 <app-header></app-header>
 
 <ion-content>
+  <div class="header-for-light col-md-12 row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-12">
+      <h1 class="wow fadeInRight animated" data-wow-duration="1s">Post your <span>Product</span></h1>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+  <h3 *ngIf="message" class="message">{{message}}</h3>
+  <div class="row">
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="block-form box-border wow fadeInLeft animated" data-wow-duration="1s">
+        <h3>What are you offering?</h3>
+        <hr>
+        <form [formGroup]="form" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Product Name:<span class="text-error">*</span></label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" formControlName="name" name="productName" id="productName"
+                placeholder="Product Name">
+              <div *ngIf="name.touched && name.invalid">
+                <div *ngIf="name.errors?.required">Name is required</div>
+              </div>
+            </div>
+          </div>
 
-  <div class="container">
+          <h3>Choose Category</h3>
+          <hr>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Category:</label>
+            <div class="col-sm-9">
+              <select name="category" formControlName="category_id" class="form-control">
+                <option *ngFor="let category of categories" [value]="category._id">{{category.name}}</option>
+              </select>
+              <div *ngIf="category_id.touched && category_id.invalid">
+                <div *ngIf="category_id.errors?.required">Category is required</div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <h3>Choose Condition<span class="text-error">*</span></h3>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Condition:<span class="text-error">*</span></label>
+            <div class="col-sm-9">
+              <select name="condition" id="condition" placeholder="Select from dropdown" formControlName="condition"
+                class="form-control">
+                <option *ngFor="let num of [1,2,3,4,5]" [value]="num">{{num}}</option>
+              </select>
+              <div *ngIf="condition.touched && condition.invalid">
+                <div *ngIf="condition.errors?.required">Condition is required</div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <h3>Description</h3>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Description:</label>
+            <div class="col-sm-9">
+              <input type="textarea" formControlName="description" name="description" id="description" class="form-control"
+                id="description" />
+              <div *ngIf="description.touched && description.invalid">
+                <div *ngIf="description.errors?.required">Description is required</div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <h3>Set Price</h3>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Price:</label>
+            <div class="col-sm-9">
+              <input type="number" formControlName="price" name="price" id="price" min="0" class="form-control" id="price">
+              <div *ngIf="price.touched && price.invalid">
+                <div *ngIf="price.errors?.required">Price is required</div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <h3>Upload Image</h3>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Images:</label>
+            <div class="col-sm-3">
+              <input type="file" class="form-control" id="inputfile" class="inputfile" name="single" ng2FileSelect
+                [uploader]="uploader" />
+            </div>
+          </div>
+          <hr>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-9">
+              <button type="submit" [disabled]="form.invalid" (click)="post()" class="btn-default-1" [ngStyle]="{'cursor': form.invalid ? 'not-allowed' : 'pointer'}"
+                style="width:100%">
+                Post Product
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </article>
+  </div>
+
+
+
+
+  <!-- <div class="container">
               
   <h1 class="wow fadeInRight animated" data-wow-duration="1s">Post <span>Product</span></h1>
   <h3 *ngIf="message" class="message">{{message}}</h3>
@@ -68,7 +172,7 @@
 
           </div> 
         
-    
-   
+     -->
+
 </ion-content>
 <app-footer></app-footer>
