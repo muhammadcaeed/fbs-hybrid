@@ -12,8 +12,7 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class ProductListComponent implements OnInit {
   articles;
-  keyword;
-  filter = 'recent';
+  filter;
   constructor(
     private title: Title,
     private signingService: SigningService,
@@ -24,8 +23,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('Products List - Fulda Buy & Sell');
-    this.keyword = this.route.snapshot.params.name;
-    this.list();
+    this.showProducts();
   }
 
   async presentActionSheet() {
@@ -36,42 +34,29 @@ export class ProductListComponent implements OnInit {
         icon: 'arrow-up',
         handler: () => {
           console.log('Most Recent');
-          this.filter="recent"
-          this.list();
+          this.filter="created_at"
+          this.showProducts();
+          this.bubbleSort(this.articles, this.filter);
         }
       }, {
         text: 'Price: Lowest First',
         icon: 'logo-euro',
         handler: () => {
           console.log('Price: Lowest First');
-          this.filter="price_lowest"
-          this.list();
+          this.filter="price"
+          this.showProducts();
+          this.bubbleSort(this.articles, this.filter);
         }
-      }, {
-        text: 'Price: Highest First',
-        icon: 'logo-euro',
-        handler: () => {
-          console.log('Price: Highest First');
-          this.filter="price_highest"
-          this.list();
-        }
-      }, {
+      },  {
         text: 'Product Name : A to Z',
         icon: 'arrow-dropdown-circle',
         handler: () => {
           console.log('Product Name : A to Z');
-          this.filter="name_asc"
-          this.list();
+          this.filter="name"
+          this.showProducts();
+          this.bubbleSort(this.articles, this.filter);
         }
-      }, {
-        text: 'Product Name : Z to A',
-        icon: 'arrow-dropup-circle',
-        handler: () => {
-          console.log('Product Name : Z to A');
-          this.filter="name_desc"
-          this.list();
-        }
-      }, {
+      },  {
         text: 'Close',
         icon: 'close',
         role: 'cancel',
@@ -83,16 +68,32 @@ export class ProductListComponent implements OnInit {
     await actionSheet.present();
   }
 
-  list() {
-    console.log(this.keyword);
-    this.signingService.searchProducts({name: this.keyword, filter: this.filter})
+  bubbleSort(products, sortBy)
+  {
+      var swapped;
+
+      console.log(products);
+      console.log(sortBy);
+      do {
+          swapped = false;
+          for (var i = 0; i < products.length - 1; i++) {
+              if (products[i][sortBy] > products[i + 1][sortBy]) {
+                  var temp = products[i];
+                  products[i] = products[i + 1];
+                  products[i + 1] = temp;
+                  swapped = true;
+              }
+          }
+      } while (swapped);
+
+      console.log('results after sort =>',products);
+  }
+
+  showProducts() {
+    this.signingService.searchProducts({})
     .subscribe(results => {
-      console.log('results =>', results);
       if (results['status'] && results['body'] && Array.isArray(results['body']['product'])) {
-        this.articles = results['body']['product'];
-        // this.articles.forEach(article => {
-        //   article.image_path = environment.apiUrl + '/' + article.image_path;
-        // });
+        this.articles = results.body['product'];
       }
     }, err => console.log('err => ', err));
   }
@@ -101,5 +102,4 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['product-detail', {id: id}]);
   }
 
-  
 }
