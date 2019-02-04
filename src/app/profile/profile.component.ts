@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
+import { ToastService } from '../services/toast.service';
 import { SigningService } from '../services/signing.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {environment} from '../../environments/environment';
@@ -21,7 +22,8 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private signingService: SigningService
+    private signingService: SigningService,
+    private toastService: ToastService
     ) {
       this.form = fb.group({
         role: ['', [Validators.required]],
@@ -76,8 +78,8 @@ export class ProfileComponent implements OnInit {
     params.user_id = this.user['_id'];
     this.signingService.updateUser(params)
       .subscribe(
-        result => this.signingService.presentToast(result['message']),
-        err => this.signingService.presentToast(err['error']['message'])
+        result => this.toastService.presentToast(result['message']),
+        err => this.toastService.presentToast(err['error']['message'])
       );
   }
 }

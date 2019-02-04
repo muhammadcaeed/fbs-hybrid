@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SigningService } from '../../services/signing.service';
-import { environment } from '../../../environments/environment';
+import { ProductService } from '../../services/product.service';
+import { WishlistService } from '../../services/wishlist.service';
+import { ToastService } from '../../services/toast.service';
 import _ from 'lodash';
 
 @Component({
@@ -20,7 +21,9 @@ export class ProductDetailComponent implements OnInit {
     private title: Title,
     private route: ActivatedRoute,
     private router: Router,
-    private signingService: SigningService
+    private productService: ProductService,
+    private wishlistService: WishlistService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -29,14 +32,13 @@ export class ProductDetailComponent implements OnInit {
     }
     this.title.setTitle('Product Details - Fulda Buy & Sell');
     this.productId = this.route.snapshot.params.id;
-    this.signingService.getProduct(this.productId)
+    this.productService.getProduct(this.productId)
       .subscribe(
         result => {
           console.log(result);
           if (result['status']) {
             this.article = result['product'];
             this.article.product_id = result['product']['_id'];
-            // this.article.image_path = environment.apiUrl + '/' + this.article.image_path;
             if (this.user && this.user.role && this.user.role !== 'seller') {
               this.article.buyer_id = this.user._id;
               this.params = _.pick(this.article, ['seller_id', 'buyer_id', 'product_id']);
@@ -44,17 +46,17 @@ export class ProductDetailComponent implements OnInit {
             }
           }
           else {
-            this.signingService.presentToast('Product not found');
+            this.toastService.presentToast('Product not found');
           }
         },
-        err => this.signingService.presentToast(err['error']['message'])
+        err => this.toastService.presentToast(err['error']['message'])
         );
   }
   addToWishlist() {
     if (this.existInWishlist) {
       return;
     }
-    this.signingService.addToWishlist(this.params)
+    this.wishlistService.addToWishlist(this.params)
       .subscribe(
         result => {
           console.log(result);
@@ -65,7 +67,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   exist() {
-    this.signingService.exist(this.params)
+    this.wishlistService.exist(this.params)
       .subscribe(
         exist => {
           if (exist['count'] && exist['count'] > 0) {

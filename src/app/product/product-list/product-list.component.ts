@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SigningService } from '../../services/signing.service';
-import { environment } from '../../../environments/environment';
+import { ProductService } from '../../services/product.service';
 import { ActionSheetController } from '@ionic/angular';
 
 @Component({
@@ -15,7 +14,7 @@ export class ProductListComponent implements OnInit {
   filter;
   constructor(
     private title: Title,
-    private signingService: SigningService,
+    private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
     public actionSheetController: ActionSheetController
@@ -90,7 +89,7 @@ export class ProductListComponent implements OnInit {
   }
 
   showProducts() {
-    this.signingService.searchProducts({})
+    this.productService.searchProducts({})
     .subscribe(results => {
       if (results['status'] && results['body'] && Array.isArray(results['body']['product'])) {
         this.articles = results.body['product'];

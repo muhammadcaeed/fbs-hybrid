@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { SigningService } from '../../services/signing.service';
+import { ProductService } from '../../services/product.service';
+import { ToastService } from '../../services/toast.service';
 import { FileUploader, FileItem, ParsedResponseHeaders } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
 
@@ -20,9 +20,9 @@ export class ProductCreateComponent implements OnInit {
   product_id;
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
-    private signingService: SigningService
+    private productService: ProductService,
+    private toastService: ToastService
+
   ) {
     this.form = fb.group({
       name: ['', [Validators.required]],
@@ -42,7 +42,7 @@ export class ProductCreateComponent implements OnInit {
   post() {
     const params = this.form.value;
     params.seller_id = this.user._id;
-    this.signingService.postProduct(this.form.value)
+    this.productService.postProduct(this.form.value)
       .subscribe(result => {
         if (result['status']) {
           this.product_id = result['product_id'];
@@ -64,7 +64,7 @@ export class ProductCreateComponent implements OnInit {
     this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
     this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
 
-    this.signingService.getCategories()
+    this.productService.getCategories()
       .subscribe(result => this.categories = result['categories']);
   }
 
@@ -73,14 +73,14 @@ export class ProductCreateComponent implements OnInit {
     if (result['status']) {
       this.form.reset();
       this.uploader.clearQueue();
-      this.signingService.presentToast(result['message']);
+      this.toastService.presentToast(result['message']);
     }
 }
 
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
     const error = JSON.parse(response);
     console.log('error =>', error);
-    this.signingService.presentToast(error.err.message);
+    this.toastService.presentToast(error.err.message);
     this.uploader.clearQueue();
   }
 }

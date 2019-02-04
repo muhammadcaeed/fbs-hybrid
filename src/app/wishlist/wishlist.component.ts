@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SigningService } from '../services/signing.service';
+import { ToastService } from '../services/toast.service';
+import { WishlistService } from '../services/wishlist.service';
 import { environment } from '../../environments/environment';
 import _ from 'lodash';
 
@@ -14,7 +15,8 @@ export class WishlistComponent implements OnInit {
   total = 0;
   user;
   constructor(
-    private signingService: SigningService
+    private toastService: ToastService,
+    private wishlistService: WishlistService
   ) { }
 
   ngOnInit() {
@@ -36,17 +38,17 @@ export class WishlistComponent implements OnInit {
       order.wishlist.push(article._id);
     });
 
-    this.signingService.checkout(order)
+    this.wishlistService.checkout(order)
       .subscribe(result => {
         console.log(result);
-        this.signingService.presentToast(result['message']);
+        this.toastService.presentToast(result['message']);
           this.list();
       }, 
       err => console.log(err));
   }
 
   list() {
-    this.signingService.getWishlist(this.user._id)
+    this.wishlistService.getWishlist(this.user._id)
     .subscribe(
       result => {
         this.articles = result['wishlist'];
@@ -54,7 +56,6 @@ export class WishlistComponent implements OnInit {
         console.log(this.orders);
         this.articles.forEach(article => {
           this.total += article.product_details.price;
-          // article.product_details.image_path = environment.apiUrl + '/' + article.product_details.image_path;
         });
 
       },
@@ -65,7 +66,7 @@ export class WishlistComponent implements OnInit {
   removeProduct(product) {
     product = _.pick(product, ['_id', 'seller_id', 'buyer_id', 'product_id']);
     console.log(product);
-    this.signingService.removeProductFromWishlist(product)
+    this.wishlistService.removeProductFromWishlist(product)
       .subscribe(
         result => {
           this.total = 0;

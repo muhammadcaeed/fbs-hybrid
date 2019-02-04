@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SigningService } from '../services/signing.service';
-import { environment } from '../../environments/environment';
+import { ToastService } from '../services/toast.service';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-orders-history',
@@ -14,7 +14,8 @@ export class OrdersHistoryComponent implements OnInit {
   approved = 0;
   sold = 0;
   constructor(
-    private signingService: SigningService
+    private toastService: ToastService,
+    private productService: ProductService
   ) { }
 
   ngOnInit() {
@@ -25,7 +26,7 @@ export class OrdersHistoryComponent implements OnInit {
   }
 
   list() {
-    this.signingService.sales({id: this.user._id})
+    this.productService.sales({id: this.user._id})
     .subscribe(result => {
       console.log(result);
       if (result['body'] && result['body']['products'] && result['body']['products']['length'] > 0) {
@@ -34,19 +35,18 @@ export class OrdersHistoryComponent implements OnInit {
           article.approved ? this.approved ++ : null;
           article.sold ? this.sold ++ : null;
           article.sold ? this.total += article.price : null; 
-          // article.image_path = environment.apiUrl + '/' + article.image_path;
         });
       }
       else {
-        this.signingService.presentToast('No sales yet');
+        this.toastService.presentToast('No sales yet');
       }
       if (result['body'] && !result['body']['status']) {
-        this.signingService.presentToast(result['body']['message']);
+        this.toastService.presentToast(result['body']['message']);
       }
     }, err => console.log(err));
   }
   removeProduct(id) {
-    this.signingService.deleteProduct(id)
+    this.productService.deleteProduct(id)
       .subscribe(
         result => {
           this.list();

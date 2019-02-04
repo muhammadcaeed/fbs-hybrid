@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SigningService } from '../../services/signing.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private signingService: SigningService
+    private signingService: SigningService,
+    private toastService: ToastService
     ) {
       this.form = fb.group({
         role: ['', [Validators.required]],
@@ -42,10 +44,10 @@ export class RegisterComponent {
           if (result['status']) {
             this.form.reset();
           }
-          this.signingService.presentToast(result['message']);
+          this.toastService.presentToast(result['message']);
         },
         err => {
-          this.signingService.presentToast(err['error']['message']);
+          this.toastService.presentToast(err['error']['message']);
         }
       );
   }

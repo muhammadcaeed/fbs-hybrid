@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {SigningService} from '../services/signing.service';
-import { environment } from '../../environments/environment';
+import { ProductService } from '../services/product.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +12,7 @@ export class HomeComponent implements OnInit {
   articles = [];
   constructor(
     private title: Title,
-    private signingService: SigningService,
+    private productService: ProductService,
     private router: Router
   ) { }
 
@@ -23,15 +22,8 @@ export class HomeComponent implements OnInit {
   }
 
   latestProducts() {
-    this.signingService.latestProducts()
-      .subscribe(result => {
-        if (result && result['products']) {
-          this.articles = result['products'];
-          // this.articles.forEach(article => {
-          //   article.image_path = environment.apiUrl + '/' + article.image_path;
-          // });
-        }
-      });
+    this.productService.latestProducts()
+      .subscribe(result => this.articles = result['products'] );
   }
   productDetails(id) {
     this.router.navigate(['product-detail', {id: id}]);

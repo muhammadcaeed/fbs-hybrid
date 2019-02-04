@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
 import { SigningService } from '../services/signing.service';
-import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { ProductService } from '../services/product.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -21,16 +19,14 @@ export class AdminPanelComponent implements OnInit {
   constructor(
     private title: Title,
     private signingService: SigningService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private menu: MenuController) { }
+    private productService: ProductService,
+    private toastService: ToastService) { }
 
   ngOnInit() {
     this.title.setTitle('Admin Panel - Fulda Buy & Sell');
     this.loadProducts();
     this.loadUsers();
   }
-
 
   sort(sortBy) {
     let swapped;
@@ -67,12 +63,12 @@ export class AdminPanelComponent implements OnInit {
 
   action(record) {
     console.log(record);
-    this.signingService.changeProductStatus(record)
+    this.productService.changeProductStatus(record)
       .subscribe(
         result => {
           console.log(result);
           if (result['status']) {
-            this.signingService.presentToast(result['message']);
+            this.toastService.presentToast(result['message']);
             this.isUserActive
               ? this.loadUsers()
               : this.loadProducts();
@@ -88,7 +84,7 @@ export class AdminPanelComponent implements OnInit {
         result => {
           console.log(result);
           if (result['status']) {
-            this.signingService.presentToast(result['message']);
+            this.toastService.presentToast(result['message']);
             this.isUserActive
               ? this.loadUsers()
               : this.loadProducts();
@@ -99,7 +95,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   loadProducts() {
-    this.signingService.searchProducts({ name: null, admin: true })
+    this.productService.searchProducts({ name: null, admin: true })
       .subscribe(
         result => {
           console.log(result);
