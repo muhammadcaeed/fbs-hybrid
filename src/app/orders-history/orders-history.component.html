@@ -6,12 +6,12 @@
         <h1 class="wow fadeInRight animated" data-wow-duration="1s">My <span>Sales</span></h1>
       </div>
     </ion-title>
-    <ion-title *ngIf="articles && articles['length'] < 1">
+    <ion-title *ngIf="noProducts">
       <h3>No Products Sold Yet</h3>
     </ion-title>
   </ion-toolbar>
 
-
+  <ion-spinner *ngIf="showSpinner"></ion-spinner>
 
   <div *ngIf="articles && articles['length']">
     <ion-card *ngFor="let article of articles">

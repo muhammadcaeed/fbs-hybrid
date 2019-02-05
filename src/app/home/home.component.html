@@ -7,7 +7,11 @@
 	<div class="cards-bg social-cards">
 
 		<h3 class="wow fadeInRight animated" data-wow-duration="1s">Latest <span>Products</span></h3>
-		<h3 *ngIf="!articles.length">No products</h3>
+
+		<ion-spinner *ngIf="showSpinner"></ion-spinner>
+		
+		<h3 *ngIf="noProducts">No Latest Products Found</h3>
+
 		<ion-card *ngFor="let article of articles" class="col-md-3 text-center" (click)="productDetails(article._id)">
 
 			<ion-item>

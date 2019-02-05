@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { SigningService } from '../services/signing.service';
+import { UserService } from '../services/user.service';
 import { ProductService } from '../services/product.service';
 import { ToastService } from '../services/toast.service';
 
@@ -10,6 +10,7 @@ import { ToastService } from '../services/toast.service';
   styleUrls: ['./admin-panel.component.scss']
 })
 export class AdminPanelComponent implements OnInit {
+  showSpinner: Boolean = true;
   products;
   users;
   activeLayer;
@@ -18,7 +19,7 @@ export class AdminPanelComponent implements OnInit {
   viewBy = 'Ascending';
   constructor(
     private title: Title,
-    private signingService: SigningService,
+    private userService: UserService,
     private productService: ProductService,
     private toastService: ToastService) { }
 
@@ -79,7 +80,7 @@ export class AdminPanelComponent implements OnInit {
   }
   delete(id) {
     console.log(id);
-    this.signingService[this.isUserActive ? 'deleteUser' : 'deleteProduct'](id)
+    this.userService[this.isUserActive ? 'deleteUser' : 'deleteProduct'](id)
       .subscribe(
         result => {
           console.log(result);
@@ -95,6 +96,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   loadProducts() {
+    this.showSpinner = true;
     this.productService.searchProducts({ name: null, admin: true })
       .subscribe(
         result => {
@@ -103,12 +105,14 @@ export class AdminPanelComponent implements OnInit {
           this.activeLayer = this.products;
           this.isUserActive = false;
         },
-        err => console.log('err => ', err)
+        err => console.log('err => ', err),
+        () => this.showSpinner = false
       );
   }
 
   loadUsers() {
-    this.signingService.searchUsers({ name: null, admin: true })
+    this.showSpinner = true;
+    this.userService.searchUsers({ name: null, admin: true })
       .subscribe(
         result => {
           console.log(result.body);
@@ -116,7 +120,8 @@ export class AdminPanelComponent implements OnInit {
           this.activeLayer = this.users;
           this.isUserActive = true;
         },
-        err => console.log('err => ', err)
+        err => console.log('err => ', err),
+        () => this.showSpinner = false
       );
   }
 }

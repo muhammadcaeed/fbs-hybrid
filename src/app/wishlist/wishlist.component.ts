@@ -14,6 +14,9 @@ export class WishlistComponent implements OnInit {
   orders;
   total = 0;
   user;
+  noProducts: Boolean = false;
+  showSpinner: Boolean = true;
+
   constructor(
     private toastService: ToastService,
     private wishlistService: WishlistService
@@ -48,6 +51,7 @@ export class WishlistComponent implements OnInit {
   }
 
   list() {
+    this.showSpinner = true;
     this.wishlistService.getWishlist(this.user._id)
     .subscribe(
       result => {
@@ -57,10 +61,15 @@ export class WishlistComponent implements OnInit {
         this.articles.forEach(article => {
           this.total += article.product_details.price;
         });
-
+        if (!this.articles.length) {
+          this.noProducts = true;
+        }
       },
-      err => console.log(err)
-      );
+      err => {
+        this.noProducts = true;
+        console.log(err);
+      },
+      () => this.showSpinner = false );
   }
 
   removeProduct(product) {

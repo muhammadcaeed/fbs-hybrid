@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   articles = [];
+  showSpinner: Boolean = true;
+  noProducts: Boolean = false;
+
   constructor(
     private title: Title,
     private productService: ProductService,
@@ -23,7 +26,16 @@ export class HomeComponent implements OnInit {
 
   latestProducts() {
     this.productService.latestProducts()
-      .subscribe(result => this.articles = result['products'] );
+      .subscribe(result => {
+        this.articles = result['products'];
+        if (!this.articles.length) {
+          this.noProducts = true;
+        }
+      }, err => {
+        this.noProducts = true;
+        console.log(err);
+      },
+      () => this.showSpinner = false );
   }
   productDetails(id) {
     this.router.navigate(['product-detail', {id: id}]);

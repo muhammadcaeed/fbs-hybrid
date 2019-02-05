@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { SigningService } from '../../services/signing.service';
+import { UserService } from '../../services/user.service';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
@@ -12,11 +12,12 @@ import { ToastService } from '../../services/toast.service';
 export class LoginComponent {
   form;
   message;
+  showSpinner: Boolean = false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private signingService: SigningService,
+    private userService: UserService,
     private toastService: ToastService
     ) {
       this.form = fb.group({
@@ -29,7 +30,8 @@ export class LoginComponent {
   get password() { return this.form.get('password'); }
 
   login() {
-    this.signingService.loginUser(this.form.value)
+    this.showSpinner = true;
+    this.userService.loginUser(this.form.value)
       .subscribe(
         result => {
           console.log(result);
@@ -44,7 +46,8 @@ export class LoginComponent {
         },
         err => {
           this.toastService.presentToast(err.error.message);
-        }
+        },
+        () => this.showSpinner = false
       );
   }
 }

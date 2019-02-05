@@ -11,6 +11,8 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class ProductListComponent implements OnInit {
   articles;
+  showSpinner: Boolean = true;
+  noProducts: Boolean = false;
   filter;
   constructor(
     private title: Title,
@@ -89,12 +91,20 @@ export class ProductListComponent implements OnInit {
   }
 
   showProducts() {
+    this.showSpinner = true;
     this.productService.searchProducts({})
     .subscribe(results => {
       if (results['status'] && results['body'] && Array.isArray(results['body']['product'])) {
         this.articles = results.body['product'];
+        if (!this.articles.length) {
+          this.noProducts = true;
+        }
       }
-    }, err => console.log('err => ', err));
+    }, err => {
+      this.noProducts = true;
+      console.log('err => ', err);
+    },
+    () => this.showSpinner = false);
   }
 
   productDetails(id) {

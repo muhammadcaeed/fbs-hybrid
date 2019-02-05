@@ -9,6 +9,8 @@ import { ProductService } from '../services/product.service';
 })
 export class OrdersHistoryComponent implements OnInit {
   articles = [];
+  showSpinner: Boolean = true;
+  noProducts: Boolean = false;
   user;
   total = 0;
   approved = 0;
@@ -26,6 +28,7 @@ export class OrdersHistoryComponent implements OnInit {
   }
 
   list() {
+    this.showSpinner = true;
     this.productService.sales({id: this.user._id})
     .subscribe(result => {
       console.log(result);
@@ -38,13 +41,17 @@ export class OrdersHistoryComponent implements OnInit {
         });
       }
       else {
+        this.noProducts = true;
         this.toastService.presentToast('No sales yet');
       }
       if (result['body'] && !result['body']['status']) {
+        this.noProducts = true;
         this.toastService.presentToast(result['body']['message']);
       }
-    }, err => console.log(err));
+    }, err => console.log(err),
+    () => this.showSpinner = false);
   }
+  
   removeProduct(id) {
     this.productService.deleteProduct(id)
       .subscribe(

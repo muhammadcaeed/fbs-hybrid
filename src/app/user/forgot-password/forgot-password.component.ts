@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { SigningService } from '../../services/signing.service';
+import { UserService } from '../../services/user.service';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class ForgotPasswordComponent {
   constructor( private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private signingService: SigningService,
+    private userService: UserService,
     private toastService: ToastService) {
       this.form = fb.group({
         username: ['', [Validators.required]],
@@ -28,7 +28,7 @@ export class ForgotPasswordComponent {
 
   changePassword(){
     console.log(this.form);
-    this.signingService.changePassword(this.form.value)
+    this.userService.changePassword(this.form.value)
     .subscribe(
       result => {
         this.form.reset();

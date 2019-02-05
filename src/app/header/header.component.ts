@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SigningService } from '../services/signing.service';
+import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   searchKeyword: any;
 
   constructor(
-    private signingService: SigningService,
+    private userService: UserService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
     const url = this.router.url;
     if (localStorage.getItem('user')) {
       this.user = JSON.parse(localStorage.getItem('user'));
+      console.log('****** :', this.user);
     }
     if (url.search('wishlist') !== -1) {
       if ((this.user && this.user.role === 'seller') || !this.user) {

@@ -42,6 +42,8 @@
       </ion-item>
     
     </ion-list>
+
+  <ion-spinner *ngIf="showSpinner"></ion-spinner>
   
   <ion-card *ngFor="let record of activeLayer; let x = index">
     <ion-card-header>

@@ -13,9 +13,11 @@
 		Sort <ion-icon name="funnel"></ion-icon>
 	</ion-button>
 
+	<ion-spinner *ngIf="showSpinner"></ion-spinner>
+		
+	<h3 *ngIf="noProducts">No Products Found</h3>
 
-	<h3 *ngIf="!articles?.length" class="message">No products found</h3>
-	<div class="cards-bg social-cards">
+	<div *ngIf="!showSpinner" class="cards-bg social-cards">
 
 		<h3 *ngIf="!articles?.length">No products</h3>
 		<ion-card *ngFor="let article of articles" class="col-md-3 text-center" (click)="productDetails(article._id)">
