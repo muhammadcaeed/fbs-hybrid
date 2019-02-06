@@ -36,7 +36,7 @@ export class ProductListComponent implements OnInit {
         handler: () => {
           console.log('Most Recent');
           this.filter="created_at"
-          this.showProducts();
+         // this.showProducts();
           this.bubbleSort(this.articles, this.filter);
         }
       }, {
@@ -45,7 +45,7 @@ export class ProductListComponent implements OnInit {
         handler: () => {
           console.log('Price: Lowest First');
           this.filter="price"
-          this.showProducts();
+          //this.showProducts();
           this.bubbleSort(this.articles, this.filter);
         }
       },  {
@@ -54,7 +54,7 @@ export class ProductListComponent implements OnInit {
         handler: () => {
           console.log('Product Name : A to Z');
           this.filter="name"
-          this.showProducts();
+         // this.showProducts();
           this.bubbleSort(this.articles, this.filter);
         }
       },  {
